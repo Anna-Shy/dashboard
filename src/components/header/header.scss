@@ -1,0 +1,12 @@
+@import "../../styles/variable.scss";
+
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+
+  .logo {
+    width: 10%;
+  }
+}
