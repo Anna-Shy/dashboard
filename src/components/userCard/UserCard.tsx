@@ -5,6 +5,7 @@ import { userInfoData } from '../../source/data/UserInfoData';
 import './userCard.scss'
 
 export const UserCard = () => {
+    const [days, setDays] = useState(0);
     const [months, setMonths] = useState(0);
     const [years, setYears] = useState(0);
 
@@ -19,8 +20,8 @@ export const UserCard = () => {
                     </div>
 
                     {years < 0 ?
-                        <p className='userInfo-workData'> {months} mon</p> :
-                        <p className='userInfo-workData'>  {years === 0 ? 'year' : 'years'} {months} mon</p>}
+                        <p className='userInfo-workData'> {months} m {days} d</p> :
+                        <p className='userInfo-workData'>  {years} y {months} m {days} d</p>}
 
                     <div className="box-row">
                         <p className="userInfo-position">{user.position}</p>
