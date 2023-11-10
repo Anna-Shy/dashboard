@@ -1,5 +1,5 @@
 import { UserCard } from '../../components/userCard/UserCard'
-import { BigChartBox } from '../../components/bigChartBox/BigChartBox'
+import { BigChartBox } from '../../components/BigChartBox/BigChartBox'
 import { PieChartBox } from '../../components/pieChartBox/PieChartBox'
 import { StackedBarChart } from '../../components/stackedBarChartBox/StackedBarChart'
 
