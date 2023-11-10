@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { userInfoData } from '../../source/data/UserInfoData';
 
@@ -8,7 +8,6 @@ export const UserCard = () => {
     const [days, setDays] = useState(0);
     const [months, setMonths] = useState(0);
     const [years, setYears] = useState(0);
-
 
     return (
         <>
@@ -21,7 +20,7 @@ export const UserCard = () => {
 
                     {years < 0 ?
                         <p className='userInfo-workData'> {months} m {days} d</p> :
-                        <p className='userInfo-workData'>  {years} y {months} m {days} d</p>}
+                        <p className='userInfo-workData'>  {years} years {months} mon {days} days</p>}
 
                     <div className="box-row">
                         <p className="userInfo-position">{user.position}</p>
