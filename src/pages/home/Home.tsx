@@ -1,14 +1,15 @@
-import { CListGroup, CListGroupItem, CBadge } from '@coreui/react'
-
 import { UserCard } from '../../components/userCard/UserCard'
+import { BigChartBox } from '../../components/bigChartBox/BigChartBox'
+import { PieChartBox } from '../../components/pieChartBox/PieChartBox'
+import { StackedBarChart } from '../../components/stackedBarChartBox/StackedBarChart'
 
 import { userInfoData } from '../../source/data/UserInfoData'
 
 import './home.scss'
-import BigChartBox from '../../components/BigChartBox/BigChartBox'
 
 
 const Home = () => {
+
     return (
         <div className='home'>
             <div className="box__top">
@@ -22,34 +23,17 @@ const Home = () => {
                         </div>
                     ))} */}
 
-                    <CListGroup>
-                        <CListGroupItem className="d-flex justify-content-between align-items-center">
-                            Cras justo odio
-                            <CBadge color="primary" shape="rounded-pill">
-                                14
-                            </CBadge>
-                        </CListGroupItem>
-                        <CListGroupItem className="d-flex justify-content-between align-items-center">
-                            Dapibus ac facilisis in
-                            <CBadge color="primary" shape="rounded-pill">
-                                2
-                            </CBadge>
-                        </CListGroupItem>
-                        <CListGroupItem className="d-flex justify-content-between align-items-center">
-                            Morbi leo risus
-                            <CBadge color="primary" shape="rounded-pill">
-                                1
-                            </CBadge>
-                        </CListGroupItem>
-                    </CListGroup>
-
                 </div>
                 <div className="box box2">
-                  <BigChartBox />
+                    <BigChartBox />
                 </div>
                 <div className="box box3">3</div>
-                <div className="box box4">4</div>
-                <div className="box box5">5</div>
+                <div className="box box4">
+                    <StackedBarChart />
+                </div>
+                <div className="box box5">
+                    <PieChartBox />
+                </div>
             </div>
         </div>
     )

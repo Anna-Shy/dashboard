@@ -46,9 +46,8 @@ const data = [
     },
 ];
 
-const BigChartBox = () => {
+export const BigChartBox = () => {
     return (
-
         <ResponsiveContainer width="100%" height="100%">
             <AreaChart
                 width={500}
@@ -73,5 +72,3 @@ const BigChartBox = () => {
         </ResponsiveContainer>
     )
 }
-
-export default BigChartBox
