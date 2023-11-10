@@ -25,7 +25,7 @@ const Home = () => {
 
                 </div>
                 <div className="box box2">
-                    <BigChartBox />
+                    <BigChartBox title={'Amount of Incident'} />
                 </div>
                 <div className="box box3">3</div>
                 <div className="box box4">
