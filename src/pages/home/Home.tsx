@@ -32,7 +32,7 @@ const Home = () => {
                     <StackedBarChart />
                 </div>
                 <div className="box box5">
-                    <PieChartBox />
+                    <PieChartBox title={'Mistake'}/>
                 </div>
             </div>
         </div>

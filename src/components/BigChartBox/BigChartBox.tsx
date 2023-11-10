@@ -8,7 +8,7 @@ export const BigChartBox = ({ title }: { title: string }) => {
 
     return (
         <div className="bigChartBox">
-            <h1>{title}</h1>
+            <h4>{title}</h4>
             <div className="chart">
                 <ResponsiveContainer width="99%" height="100%">
                     <AreaChart
