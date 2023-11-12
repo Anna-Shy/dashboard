@@ -29,10 +29,10 @@ const Home = () => {
                 </div>
                 <div className="box box3">3</div>
                 <div className="box box4">
-                    <StackedBarChart />
+                    <StackedBarChart title={'Amount of Meeting'}/>
                 </div>
                 <div className="box box5">
-                    <PieChartBox title={'Mistake'}/>
+                    <PieChartBox title={'Amount of Mistake'}/>
                 </div>
             </div>
         </div>
