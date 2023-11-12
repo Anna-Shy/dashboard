@@ -5,8 +5,8 @@ export const userInfoData = [
         username: "Elva McDonald",
         country: "RO",
         startWorkDate: "2023-01-01",
-        position: "junior",
-        timeOfTask: '14:20',
+        position: "Junior",
+        timeDayWork: ["7:00", "15:00", "23:00"],
         color: "#8884d8",
     },
     {
@@ -15,8 +15,8 @@ export const userInfoData = [
         username: "Linnie Nelson",
         country: "UK",
         startWorkDate: "2020-10-01",
-        position: "senior",
-        timeOfTask: '14:20',
+        position: "Senior",
+        timeDayWork: ["8:00", "16:00", "00:00"],
         color: "#82ca9d",
     },
     {
@@ -25,8 +25,8 @@ export const userInfoData = [
         username: "Brent Reeves",
         country: "UK",
         startWorkDate: "2020-10-01",
-        position: "middle",
-        timeOfTask: '14:20',
+        position: "Middle",
+        timeDayWork: ["7:00", "15:00", "23:00"],
         color: "#ffc658"
     },
     {
@@ -35,8 +35,8 @@ export const userInfoData = [
         username: "Adeline Watson",
         country: "PL",
         startWorkDate: "2020-10-01",
-        position: "middle",
-        timeOfTask: '14:20',
+        position: "Middle",
+        timeDayWork: ["7:00", "15:00", "23:00"],
         color: "#f55658"
     },
 ]

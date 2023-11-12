@@ -1,3 +1,5 @@
+// data for chart Amount of Incident
+
 export const bigChartData = [
     {
         month: 'Jan',

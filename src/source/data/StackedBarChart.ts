@@ -1,3 +1,5 @@
+// data for chart Amount of Meeting
+
 export const starkedBarChart = [
     {
         nameMeeting: '1-on-1',

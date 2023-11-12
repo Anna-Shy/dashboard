@@ -1,3 +1,5 @@
+// data for chart Amount of Mistake
+
 export const pieChartData = [
     {
         nameUser: "Dima",

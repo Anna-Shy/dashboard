@@ -9,7 +9,7 @@ interface Employee {
   username: string;
   startWorkDate: string;
   position: string;
-  timeOfTask: string;
+  timeDayWork: object | any;
   workDuration?: string;
 }
 
@@ -62,17 +62,18 @@ export const UserCard = () => {
             <h2 className="name">{user.username}</h2>
           </div>
 
-          <p className='userInfo-workData'>{calculateWorkDuration(user.startWorkDate)}</p>
-
           <div className="box-row">
-            <p className="userInfo-position">{user.position}</p>
+            <div className="userInfo-aboutWork">
+              <p className='userInfo-workData'>{calculateWorkDuration(user.startWorkDate)}</p>
+              <p className="userInfo-position">{user.position}</p>
+            </div>
 
-            <div className="userInfo-timeOfTask">
-              <span className="timeOfTask-color"
-                style={{ color: Number(user.timeOfTask) < 20 ? 'tomato' : 'limegreen' }}>
-                {user.timeOfTask}
-              </span>
-              <span className="timeOfTask-duration">this month</span>
+            <div className="userInfo-timeDayWork">
+              {user.timeDayWork.map((time: number) => (
+                <span key={user.id} className="timeDayWork-color">
+                  {time}
+                </span>
+              ))}
             </div>
           </div>
         </div>

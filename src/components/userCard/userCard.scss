@@ -34,19 +34,15 @@
     align-items: center;
   }
 
-  &-timeOfTask {
+  &-timeDayWork {
     display: flex;
     flex-direction: column;
     text-align: right;
 
-    .timeOfTask-color {
+    .timeDayWork-color {
       font-weight: bold;
-      font-size: 18px;
-    }
-
-    .timeOfTask-duration {
-      color: $soft-grey-color;
-      font-size: 12px;
+      font-size: 16px;
+      color: $limegreen-color;
     }
   }
 }
