@@ -1,6 +1,6 @@
 export const starkedBarChart = [
     {
-        nameMeeting: 'Onee',
+        nameMeeting: '1-on-1',
         dima: 2,
         liza: 3,
         eugen: 3,
