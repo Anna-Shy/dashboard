@@ -1,6 +1,22 @@
 export const pieChartData = [
-    { name: "Mobile", value: 400, color: "#8884d8" },
-    { name: "Desktop", value: 300, color: "#82ca9d" },
-    { name: "Laptop", value: 300, color: "#ffc658" },
-    { name: "Tablet", value: 200, color: "#f55658" }
+    {
+        nameUser: "Dima",
+        mistake: 3,
+        color: "#8884d8"
+    },
+    {
+        nameUser: "Liza",
+        mistake: 4,
+        color: "#82ca9d"
+    },
+    {
+        nameUser: "Eugen",
+        mistake: 2,
+        color: "#ffc658"
+    },
+    {
+        nameUser: "Kris",
+        mistake: 5,
+        color: "#f55658"
+    }
 ]

@@ -4,6 +4,9 @@
   flex-direction: column;
   justify-content: space-between;
 
+  //no click
+  pointer-events: none; 
+
   .chart {
     width: 100%;
     height: 100%;

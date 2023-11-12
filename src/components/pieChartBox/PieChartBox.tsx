@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 import { pieChartData } from "../../source/data/PieChartData";
 
@@ -10,8 +10,8 @@ const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadi
         value: number, cx: any, cy: any, midAngle: any, innerRadius: any, outerRadius: any
     }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.3;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN) + 5;
-    const y = cy + radius * Math.sin(-midAngle * RADIAN) - 5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN) - 8;
 
     return (
         <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
@@ -29,20 +29,19 @@ export const PieChartBox = ({ title }: { title: string }) => {
                     <PieChart>
                         <Pie
                             data={pieChartData}
-                            cx={100}
-                            cy={130}
+                            dataKey="mistake"
+                            cx={150}
+                            cy={110}
                             startAngle={180}
                             endAngle={0}
                             innerRadius={40}
                             outerRadius={100}
-                            fill="#8884d8"
                             labelLine={false}
                             label={renderCustomizedLabel}
                             paddingAngle={5}
-                            dataKey="value"
                         >
                             {pieChartData.map((item) => (
-                                <Cell key={item.name} fill={item.color} />
+                                <Cell key={item.nameUser} stroke={item.color} fill={item.color} />
                             ))}
                         </Pie>
                     </PieChart>
