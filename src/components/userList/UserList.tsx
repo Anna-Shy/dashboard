@@ -1,6 +1,7 @@
 import { userInfoData } from '../../source/data/UserInfoData'
 
 import './userList.scss';
+
 export const UserList = () => {
     return (
         <div className="userMainInfo">

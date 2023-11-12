@@ -69,8 +69,8 @@ export const UserCard = () => {
             </div>
 
             <div className="userInfo-timeDayWork">
-              {user.timeDayWork.map((time: number) => (
-                <span key={user.id} className="timeDayWork-color">
+              {user.timeDayWork.map((time: number, index: number) => (
+                <span key={index} className="timeDayWork-color">
                   {time}
                 </span>
               ))}
