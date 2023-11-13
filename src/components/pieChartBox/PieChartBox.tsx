@@ -1,8 +1,13 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
-import { pieChartData } from "../../source/data/PieChartData";
 
 import './pieChartBox.scss'
+
+interface Chart {
+    nameUser: string;
+    mistake: number;
+    color: string;
+}
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadius }:
@@ -20,7 +25,12 @@ const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadi
     );
 };
 
-export const PieChartBox = ({ title }: { title: string }) => {
+export const PieChartBox = (
+    { title, pieChartData }:
+        {
+            title: string;
+            pieChartData: Chart[]
+        }) => {
     return (
         <div className="pieChartBox">
             <h4>{title}</h4>

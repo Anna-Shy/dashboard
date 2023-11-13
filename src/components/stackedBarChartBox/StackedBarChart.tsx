@@ -7,11 +7,22 @@ import {
     Tooltip
 } from "recharts";
 
-import { starkedBarChart } from "../../source/data/StackedBarChart";
-
 import './stackedBarChart.scss';
 
-export const StackedBarChart = ({ title }: { title: string }) => {
+interface Chart {
+    nameMeeting: string;
+    dima: number;
+    liza: number;
+    eugen: number;
+    kris: number;
+}
+
+export const StackedBarChart = (
+    { title, starkedBarChartData }:
+        {
+            title: string;
+            starkedBarChartData: Chart[];
+        }) => {
     return (
         <div className="starkedBarChart">
             <h4>{title}</h4>
@@ -19,7 +30,7 @@ export const StackedBarChart = ({ title }: { title: string }) => {
                 <ResponsiveContainer width="99%" height="100%">
                     <ComposedChart
                         layout="vertical"
-                        data={starkedBarChart}
+                        data={starkedBarChartData}
                         margin={{
                             top: 5,
                             right: 0,

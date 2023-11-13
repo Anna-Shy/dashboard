@@ -2,11 +2,23 @@ import { useState } from 'react';
 import Switch from '@mui/material/Switch';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-import { bigChartYearData, bigChartMonthData } from '../../source/data/BigChartData';
-
 import './bigChartBox.scss';
 
-export const BigChartBox = ({ title }: { title: string }) => {
+interface Chart {
+    month: string;
+    dima: number;
+    liza: number;
+    eugen: number;
+    kris: number;
+}
+
+export const BigChartBox = (
+    { title, bigChartYearData, bigChartMonthData }:
+        {
+            title: string;
+            bigChartYearData: Chart[];
+            bigChartMonthData: Chart[];
+        }) => {
     const [checked, setChecked] = useState(true);
 
     const handleChange = () => {
