@@ -1,18 +1,35 @@
+import { useState } from 'react';
+import Switch from '@mui/material/Switch';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-import { bigChartData } from '../../source/data/BigChartData';
+import { bigChartYearData, bigChartMonthData } from '../../source/data/BigChartData';
 
 import './bigChartBox.scss';
 
 export const BigChartBox = ({ title }: { title: string }) => {
+    const [checked, setChecked] = useState(true);
+
+    const handleChange = () => {
+        setChecked((prev) => !prev);
+    };
 
     return (
         <div className="bigChartBox">
-            <h4>{title}</h4>
+            <div className="bigChartBox-row">
+                <h4>{title}</h4>
+
+                <div className="bigChartBox-switch">
+                    <p className="switch-text">Month</p>
+                    <Switch checked={checked} onChange={handleChange} defaultChecked color="default" />
+                    <p className="switch-text">Year</p>
+                </div>
+
+
+            </div>
             <div className="chart">
                 <ResponsiveContainer width="99%" height="100%">
                     <AreaChart
-                        data={bigChartData}
+                        data={checked ? bigChartYearData : bigChartMonthData}
                         margin={{
                             top: 10,
                             right: 30,

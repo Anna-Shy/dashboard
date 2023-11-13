@@ -1,6 +1,6 @@
 // data for chart Amount of Incident
 
-export const bigChartData = [
+export const bigChartYearData = [
     {
         month: 'Jan',
         dima: 20,
@@ -80,6 +80,38 @@ export const bigChartData = [
     },
     {
         month: 'Dec',
+        dima: 103,
+        liza: 5,
+        eugen: 88,
+        kris: 46,
+    }
+]
+
+
+export const bigChartMonthData = [
+    {
+        month: '1Week',
+        dima: 20,
+        liza: 40,
+        eugen: 3,
+        kris: 99,
+    },
+    {
+        month: '2Week',
+        dima: 50,
+        liza: 70,
+        eugen: 30,
+        kris: 0,
+    },
+    {
+        month: '3Week',
+        dima: 37,
+        liza: 4,
+        eugen: 13,
+        kris: 3,
+    },
+    {
+        month: '4Week',
         dima: 103,
         liza: 5,
         eugen: 88,
