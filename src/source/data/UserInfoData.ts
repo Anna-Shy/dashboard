@@ -8,6 +8,8 @@ export const userInfoData = [
         position: "Junior",
         timeDayWork: ["7:00", "15:00", "23:00"],
         color: "#8884d8",
+        projectTitle: "loremlo remloremlor emloremlor emlorem",
+        statusProject: 'ongoing'
     },
     {
         id: 2,
@@ -18,6 +20,8 @@ export const userInfoData = [
         position: "Senior",
         timeDayWork: ["8:00", "16:00", "00:00"],
         color: "#82ca9d",
+        projectTitle: "loremlo remloremlor emloremlor emlorem",
+        statusProject: 'ongoing'
     },
     {
         id: 3,
@@ -27,7 +31,9 @@ export const userInfoData = [
         startWorkDate: "2020-10-01",
         position: "Middle",
         timeDayWork: ["7:00", "15:00", "23:00"],
-        color: "#ffc658"
+        color: "#ffc658",
+        projectTitle: "loremlo remloremlor emloremlor emlorem",
+        statusProject: 'ongoing'
     },
     {
         id: 4,
@@ -37,6 +43,8 @@ export const userInfoData = [
         startWorkDate: "2020-10-01",
         position: "Middle",
         timeDayWork: ["7:00", "15:00", "23:00"],
-        color: "#f55658"
+        color: "#f55658",
+        projectTitle: "loremlo remloremlor emloremlor emlorem",
+        statusProject: 'ongoing'
     },
 ]

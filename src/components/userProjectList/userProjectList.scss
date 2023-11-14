@@ -1,0 +1,17 @@
+@import "../../styles/variable.scss";
+
+.userProject {
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid $soft-bg;
+
+    .item-project {
+      width: 50%;
+      font-size: 10px;
+      text-align: center;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import { BigChartBox } from '../../components/BigChartBox/BigChartBox'
 import { PieChartBox } from '../../components/pieChartBox/PieChartBox'
 import { StackedBarChart } from '../../components/stackedBarChartBox/StackedBarChart'
 import { UserList } from '../../components/userList/UserList'
+import { UserProjectList } from '../../components/userProjectList/UserProjectList'
 
 import { userInfoData } from '../../source/data/UserInfoData'
 import { bigChartYearData, bigChartMonthData } from '../../source/data/BigChartData';
@@ -24,12 +25,14 @@ const Home = () => {
                 <div className="box box2">
                     <BigChartBox title={'Amount of Incident'} bigChartMonthData={bigChartMonthData} bigChartYearData={bigChartYearData} />
                 </div>
-                <div className="box box3">3</div>
+                <div className="box box3">
+                    <UserProjectList userInfoData={userInfoData} />
+                </div>
                 <div className="box box4">
-                    <StackedBarChart title={'Amount of Meeting'} starkedBarChartData={starkedBarChart}/>
+                    <StackedBarChart title={'Amount of Meeting'} starkedBarChartData={starkedBarChart} />
                 </div>
                 <div className="box box5">
-                    <PieChartBox title={'Amount of Mistake'} pieChartData={pieChartData}/>
+                    <PieChartBox title={'Amount of Mistake'} pieChartData={pieChartData} />
                 </div>
             </div>
         </div>
