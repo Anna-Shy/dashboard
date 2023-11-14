@@ -13,15 +13,8 @@ interface Employee {
   workDuration?: string;
 }
 
-export const UserCard = () => {
-  const [employees, setEmployees] = useState<Employee[]>([]);
-
-  useEffect(() => {
-    fetch('src/source/data/UserInfoData.json')
-      .then(response => response.json())
-      .then(data => setEmployees(data))
-      .catch(error => console.error('Error loading data:', error));
-  }, []);
+export const UserCard = ({ userInfoData }: { userInfoData: Employee[] }) => {
+  const [employees, setEmployees] = useState<Employee[]>(userInfoData);
 
   const calculateWorkDuration = (startWorkDate: string): string => {
     const start = moment(startWorkDate);

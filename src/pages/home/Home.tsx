@@ -16,7 +16,7 @@ const Home = () => {
     return (
         <div className='home'>
             <div className="box__top">
-                <UserCard />
+                <UserCard userInfoData={userInfoData} />
             </div>
             <div className="box__main">
                 <div className="box box1">
