@@ -1,0 +1,19 @@
+@import "../../styles/variable.scss";
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 10px;
+
+  .menu-btn {
+    margin: 0 10px;
+    border: 1px solid transparent;
+    color: $main-color;
+  }
+
+  .menu-btn:hover,
+  .menu-btn:focus {
+    border: 1px solid $soft-bg;
+  }
+}
