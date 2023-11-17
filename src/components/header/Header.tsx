@@ -1,4 +1,4 @@
-import { Menu } from '../Menu/Menu';
+import { Menu } from '../menu/Menu';
 import logo from '../../source/svg/logo.svg';
 
 import './header.scss'
