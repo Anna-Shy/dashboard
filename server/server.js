@@ -34,6 +34,16 @@ app.get("/mistake", (req, res) => {
   });
 });
 
+app.get("/meeting", (req, res) => {
+  db.query("SELECT * FROM meeting", (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 app.post("/create", (req, res) => {
   const name = req.body.name;
   const mail = req.body.mail;

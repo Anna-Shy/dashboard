@@ -8,7 +8,6 @@ import { UserList } from '../../components/userList/UserList'
 import { UserProjectList } from '../../components/userProjectList/UserProjectList'
 
 import { bigChartYearData, bigChartMonthData } from '../../source/data/BigChartData';
-import { starkedBarChart } from "../../source/data/StackedBarChart";
 
 import './home.scss'
 
@@ -38,7 +37,7 @@ const Home = () => {
                     <UserProjectList userInfoData={userInfoData} />
                 </div>
                 <div className="box box4">
-                    <StackedBarChart title={'Amount of Meeting'} starkedBarChartData={starkedBarChart} />
+                    <StackedBarChart title={'Amount of Meeting'} />
                 </div>
                 <div className="box box5">
                     <PieChartBox title={'Amount of Mistake'} />

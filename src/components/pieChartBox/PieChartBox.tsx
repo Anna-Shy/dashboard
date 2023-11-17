@@ -35,6 +35,11 @@ export const PieChartBox = ({ title }: { title: string }) => {
             .catch(error => console.error('Error loading data:', error));
     }, []);
 
+    // Ensure that userData is not empty before using it
+    if (userData.length === 0) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className="pieChartBox">
             <h4>{title}</h4>
