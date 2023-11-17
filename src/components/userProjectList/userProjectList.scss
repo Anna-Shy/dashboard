@@ -8,8 +8,11 @@
     padding: 8px;
     border-bottom: 1px solid $soft-bg;
 
+    .item-name {
+      width: 10%;
+    }
+
     .item-project {
-      width: 50%;
       font-size: 10px;
       text-align: center;
     }

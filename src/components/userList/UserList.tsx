@@ -2,12 +2,8 @@ import './userList.scss';
 
 interface Employee {
     id: number;
-    img: string;
     username: string;
     country: string;
-    startWorkDate: string;
-    position: string;
-    timeDayWork: string[];
     color: string;
 }
 

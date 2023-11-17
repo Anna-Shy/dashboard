@@ -1,10 +1,10 @@
+import { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-
 
 import './pieChartBox.scss'
 
 interface Chart {
-    nameUser: string;
+    userName: string;
     mistake: number;
     color: string;
 }
@@ -25,12 +25,16 @@ const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadi
     );
 };
 
-export const PieChartBox = (
-    { title, pieChartData }:
-        {
-            title: string;
-            pieChartData: Chart[]
-        }) => {
+export const PieChartBox = ({ title }: { title: string }) => {
+    const [userData, setUserData] = useState<Chart[]>([]);
+
+    useEffect(() => {
+        fetch('http://localhost:4000/mistake')
+            .then(response => response.json())
+            .then(data => setUserData(data))
+            .catch(error => console.error('Error loading data:', error));
+    }, []);
+
     return (
         <div className="pieChartBox">
             <h4>{title}</h4>
@@ -38,7 +42,7 @@ export const PieChartBox = (
                 <ResponsiveContainer width="99%" height="99%">
                     <PieChart>
                         <Pie
-                            data={pieChartData}
+                            data={userData}
                             dataKey="mistake"
                             cx={150}
                             cy={110}
@@ -50,8 +54,8 @@ export const PieChartBox = (
                             label={renderCustomizedLabel}
                             paddingAngle={5}
                         >
-                            {pieChartData.map((item) => (
-                                <Cell key={item.nameUser} stroke={item.color} fill={item.color} />
+                            {userData.map((item) => (
+                                <Cell key={item.userName} stroke={item.color} fill={item.color} />
                             ))}
                         </Pie>
                     </PieChart>

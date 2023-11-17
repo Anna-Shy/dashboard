@@ -18,7 +18,11 @@ interface Chart {
 }
 
 export const StackedBarChart = (
-    { title, starkedBarChartData }:
+    {
+        title,
+        starkedBarChartData
+    }
+        :
         {
             title: string;
             starkedBarChartData: Chart[];

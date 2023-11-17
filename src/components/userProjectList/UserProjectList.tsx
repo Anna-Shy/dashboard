@@ -4,7 +4,7 @@ interface Employee {
     id: number;
     username: string;
     projectTitle: string;
-    statusProject: string;
+    projectStatus: string;
 }
 
 export const UserProjectList = ({ userInfoData }: { userInfoData: Employee[] }) => {
@@ -13,9 +13,11 @@ export const UserProjectList = ({ userInfoData }: { userInfoData: Employee[] }) 
             <div className="userProject-list">
                 {userInfoData.map((user: any) => (
                     <div className="userProject-item" key={user.id}>
-                        <p className="item-name">{user.username.substring(0, user.username.indexOf(' '))}</p>
+                        <p className="item-name">{user.username}</p>
+                        {/* only first word */}
+                        {/* <p className="item-name">{user.username.substring(0, user.username.indexOf(' '))}</p> */}
                         <p className="item-project">{user.projectTitle}</p>
-                        <p className="item-status" >{user.statusProject}</p>
+                        <p className="item-status" >{user.projectStatus}</p>
                     </div>
                 ))}
             </div>

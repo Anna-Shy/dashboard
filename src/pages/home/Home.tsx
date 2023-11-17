@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 import { UserCard } from '../../components/userCard/UserCard'
 import { BigChartBox } from '../../components/BigChartBox/BigChartBox'
 import { PieChartBox } from '../../components/pieChartBox/PieChartBox'
@@ -5,14 +7,21 @@ import { StackedBarChart } from '../../components/stackedBarChartBox/StackedBarC
 import { UserList } from '../../components/userList/UserList'
 import { UserProjectList } from '../../components/userProjectList/UserProjectList'
 
-import { userInfoData } from '../../source/data/UserInfoData'
 import { bigChartYearData, bigChartMonthData } from '../../source/data/BigChartData';
 import { starkedBarChart } from "../../source/data/StackedBarChart";
-import { pieChartData } from "../../source/data/PieChartData";
 
 import './home.scss'
 
 const Home = () => {
+    const [userInfoData, setUserInfoData] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:4000/userinfo')
+            .then(response => response.json())
+            .then(data => setUserInfoData(data))
+            .catch(error => console.error('Error loading data:', error));
+    }, []);
+
     return (
         <div className='home'>
             <div className="box__top">
@@ -32,7 +41,7 @@ const Home = () => {
                     <StackedBarChart title={'Amount of Meeting'} starkedBarChartData={starkedBarChart} />
                 </div>
                 <div className="box box5">
-                    <PieChartBox title={'Amount of Mistake'} pieChartData={pieChartData} />
+                    <PieChartBox title={'Amount of Mistake'} />
                 </div>
             </div>
         </div>
