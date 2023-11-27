@@ -9,9 +9,7 @@ export const MenuBtnDrawer = ({ title }: { title: string }) => {
         right: false
     });
 
-    const toggleDrawer = (anchor: Anchor, open: boolean) => (
-        event: React.KeyboardEvent | React.MouseEvent
-    ) => {
+    const toggleDrawer = (anchor: Anchor, open: boolean) => () => {
         setState({ ...state, [anchor]: open });
     };
 
