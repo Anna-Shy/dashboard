@@ -37,7 +37,22 @@ app.get("/meeting", (req, res) => {
   handleDatabaseQuery("meeting", res);
 });
 
+app.put("/mistake", (req, res) => {
+  const userId = req.body.id;
+  const mistake = req.body.mistake;
 
+  db.query(
+    "UPDATE mistake SET `mistake`= ? WHERE id = ?",
+    [mistake, userId],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");
