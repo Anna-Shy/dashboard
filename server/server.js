@@ -45,13 +45,28 @@ app.put("/mistake", (req, res) => {
     "UPDATE mistake SET `mistake`= ? WHERE id = ?",
     [mistake, userId],
     (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(result);
-      }
+      if (err) return res.send(err);
+      return res.json(result);
     }
   );
+});
+
+app.put("/meeting", (req, res) => {
+  const userId = req.body.id;
+
+  const values = [
+    req.body.oneOnone,
+    req.body.weekly,
+    req.body.training,
+  ];
+
+  db.query(
+    "UPDATE meeting SET `oneOnone`= ?, `weekly`= ?, `training`= ? WHERE id = ?",
+    [...values, userId],
+    (err, result) => {
+      if (err) return res.send(err);
+      return res.json(result);
+    });
 });
 
 app.listen(4000, () => {
