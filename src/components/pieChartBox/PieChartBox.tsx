@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Box, Divider, Modal, TextField, Button } from '@mui/material';
+import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
+import CheckIcon from '@mui/icons-material/Check';
 
 import './pieChartBox.scss'
 
@@ -13,15 +15,20 @@ interface Chart {
     color: string;
 }
 
-const style = {
+interface alertState extends SnackbarOrigin {
+    openAlert: boolean;
+}
+
+const styleModal = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 500,
     bgcolor: 'background.paper',
-    border: '2px solid #384256',
-    borderRadius: 6,
+    // border: '1px solid #384256',
+    border: 'none',
+    borderRadius: 5,
     p: 4,
 };
 
@@ -43,7 +50,14 @@ const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadi
 
 export const PieChartBox = ({ title }: { title: string }) => {
     const [userData, setUserData] = useState<Chart[]>([]);
-    const [open, setOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+
+    const [stateAlert, setStateAlert] = useState<alertState>({
+        openAlert: false,
+        vertical: 'top',
+        horizontal: 'center',
+    });
+    const { vertical, horizontal, openAlert } = stateAlert;
 
     useEffect(() => {
         fetch(`http://localhost:4000/mistake`)
@@ -52,8 +66,9 @@ export const PieChartBox = ({ title }: { title: string }) => {
             .catch(error => console.error('Error loading data:', error));
     }, []);
 
-    const handleClick = async (e: any, userId: number) => {
+    const handleClick = async (e: any, userId: number, newState: SnackbarOrigin) => {
         e.preventDefault();
+        setStateAlert({ ...newState, openAlert: true });
 
         try {
             await axios.put(`http://localhost:4000/mistake`, userData.find(user => user.id === userId));
@@ -72,16 +87,19 @@ export const PieChartBox = ({ title }: { title: string }) => {
         });
     };
 
-    const handleMouseDown = (event: React.KeyboardEvent | React.MouseEvent) => {
+    const handleMouseDownModal = (event: React.KeyboardEvent | React.MouseEvent) => {
         if (event.altKey) {
-            setOpen(true);
+            setOpenModal(true);
         }
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const handleCloseModal = () => {
+        setOpenModal(false);
     };
 
+    const handleCloseAlert = () => {
+        setStateAlert({ ...stateAlert, openAlert: false });
+    };
 
     // Ensure that userData is not empty before using it
     if (userData.length === 0) {
@@ -89,14 +107,14 @@ export const PieChartBox = ({ title }: { title: string }) => {
     }
 
     return (
-        <div className="starkedBarChart" onMouseDown={handleMouseDown}>
+        <div className="starkedBarChart" onMouseDown={handleMouseDownModal}>
             <h4>{title}</h4>
             <Modal
-                open={open}
-                onClose={handleClose}
+                open={openModal}
+                onClose={handleCloseModal}
                 className='userInfoModal'
             >
-                <Box sx={style}>
+                <Box sx={styleModal}>
                     <h2 className="userInfoModal__title">Update amount of mistake</h2>
                     <Divider />
                     <div className="userInfoModal__context">
@@ -104,33 +122,43 @@ export const PieChartBox = ({ title }: { title: string }) => {
                             userData.map((user, key) => {
                                 return (
                                     <div className="userInfoModal__user" key={user.id}>
-                                        <h3 className="user-title">{user.userName}</h3>
+                                        <div className="user-info">
+                                            <div className="user-color" style={{ backgroundColor: user.color }}></div>
+                                            <h3 className="user-title">{user.userName}</h3>
+                                        </div>
 
                                         <div className="user-inputBlock">
                                             <TextField
-                                                id="standard-number"
+                                                id="outlined-number"
                                                 label="Mistake"
                                                 type="number"
+                                                variant="outlined"
+                                                className='user-input'
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
-                                                variant="standard"
-                                                className='user-input'
                                                 defaultValue={user.mistake}
                                                 onChange={(e) => handleChange(e, key)}
                                             />
-                                        </div>
 
-                                        <div className="userInfoModal__btn">
                                             <Button
                                                 disabled={false}
                                                 size="medium"
-                                                variant="outlined"
-                                                className='btn'
-                                                onClick={(e) => handleClick(e, user.id)}
+                                                variant="contained"
+                                                className='user-btn'
+                                                onClick={(e) => handleClick(e, user.id, { vertical: 'top', horizontal: 'center' })}
+                                                startIcon={<CheckIcon />}
                                             >
                                                 Update
                                             </Button>
+
+                                            <Snackbar
+                                                anchorOrigin={{ vertical, horizontal }}
+                                                open={openAlert}
+                                                onClose={handleCloseAlert}
+                                                message="Updated"
+                                                key={vertical + horizontal}
+                                            />
                                         </div>
                                     </div>
                                 );
