@@ -17,6 +17,10 @@ interface Chart {
     [key: string]: any;
 }
 
+interface alertState extends SnackbarOrigin {
+    openAlert: boolean;
+}
+
 const meetingTotals = {
     'oneOnone': 0,
     'weekly': 0,
@@ -42,6 +46,13 @@ export const StackedBarChart = ({ title }: { title: string }) => {
     const [userData, setUserData] = useState<Chart[]>([]);
     const [openModal, setOpenModal] = useState(false);
 
+    const [stateAlert, setStateAlert] = useState<alertState>({
+        openAlert: false,
+        vertical: 'top',
+        horizontal: 'center',
+    });
+    const { vertical, horizontal, openAlert } = stateAlert;
+
     useEffect(() => {
         fetch('http://localhost:4000/meeting')
             .then(response => response.json())
@@ -49,8 +60,9 @@ export const StackedBarChart = ({ title }: { title: string }) => {
             .catch(error => console.error('Error loading data:', error));
     }, []);
 
-    const handleClick = async (e: any, userId: number) => {
+    const handleClick = async (e: any, userId: number, newState: SnackbarOrigin) => {
         e.preventDefault();
+        setStateAlert({ ...newState, openAlert: true });
 
         try {
             await axios.put(`http://localhost:4000/meeting`, userData.find(user => user.id === userId));
@@ -99,6 +111,10 @@ export const StackedBarChart = ({ title }: { title: string }) => {
 
     const handleCloseModal = () => {
         setOpenModal(false);
+    };
+
+    const handleCloseAlert = () => {
+        setStateAlert({ ...stateAlert, openAlert: false });
     };
 
     // Ensure that userData is not empty before using it
@@ -174,11 +190,19 @@ export const StackedBarChart = ({ title }: { title: string }) => {
                                                 size="medium"
                                                 variant="contained"
                                                 className='user-btn'
-                                                onClick={(e) => handleClick(e, user.id)}
+                                                onClick={(e) => handleClick(e, user.id, { vertical: 'top', horizontal: 'center' })}
                                                 startIcon={<CheckIcon />}
                                             >
                                                 Update
                                             </Button>
+
+                                            <Snackbar
+                                                anchorOrigin={{ vertical, horizontal }}
+                                                open={openAlert}
+                                                onClose={handleCloseAlert}
+                                                message="Updated"
+                                                key={vertical + horizontal}
+                                            />
                                         </div>
                                     </div>
                                 );
