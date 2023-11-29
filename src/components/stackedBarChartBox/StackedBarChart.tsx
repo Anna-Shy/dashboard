@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
+import { UpdateSnackbarAlert } from '../updateSnackbarAlert/updateSnackbarAlert';
+
 import { ComposedChart, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer } from 'recharts';
 import { Box, Divider, Modal, TextField, Button } from '@mui/material';
-import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 import CheckIcon from '@mui/icons-material/Check';
 
 import './stackedBarChart.scss';
@@ -15,10 +16,6 @@ interface Chart {
     weekly: number;
     training: number;
     [key: string]: any;
-}
-
-interface alertState extends SnackbarOrigin {
-    openAlert: boolean;
 }
 
 const meetingTotals = {
@@ -45,13 +42,7 @@ const colors = ['#f55658', '#8884d8', '#82ca9d', '#ffc658'];
 export const StackedBarChart = ({ title }: { title: string }) => {
     const [userData, setUserData] = useState<Chart[]>([]);
     const [openModal, setOpenModal] = useState(false);
-
-    const [stateAlert, setStateAlert] = useState<alertState>({
-        openAlert: false,
-        vertical: 'top',
-        horizontal: 'center',
-    });
-    const { vertical, horizontal, openAlert } = stateAlert;
+    const [openAlert, setOpenAlert] = useState(false);
 
     useEffect(() => {
         fetch('http://localhost:4000/meeting')
@@ -60,9 +51,9 @@ export const StackedBarChart = ({ title }: { title: string }) => {
             .catch(error => console.error('Error loading data:', error));
     }, []);
 
-    const handleClick = async (e: any, userId: number, newState: SnackbarOrigin) => {
+    const handleClick = async (e: any, userId: number) => {
         e.preventDefault();
-        setStateAlert({ ...newState, openAlert: true });
+        setOpenAlert(true);
 
         try {
             await axios.put(`http://localhost:4000/meeting`, userData.find(user => user.id === userId));
@@ -113,16 +104,11 @@ export const StackedBarChart = ({ title }: { title: string }) => {
         setOpenModal(false);
     };
 
-    const handleCloseAlert = () => {
-        setStateAlert({ ...stateAlert, openAlert: false });
-    };
-
     // Ensure that userData is not empty before using it
     if (userData.length === 0) {
         return <p>Loading...</p>;
     }
 
-    console.log(userData)
     return (
         <div className="starkedBarChart" onMouseDown={handleMouseDownModal}>
             <h4>{title}</h4>
@@ -190,18 +176,15 @@ export const StackedBarChart = ({ title }: { title: string }) => {
                                                 size="medium"
                                                 variant="contained"
                                                 className='user-btn'
-                                                onClick={(e) => handleClick(e, user.id, { vertical: 'top', horizontal: 'center' })}
+                                                onClick={(e) => handleClick(e, user.id)}
                                                 startIcon={<CheckIcon />}
                                             >
                                                 Update
                                             </Button>
 
-                                            <Snackbar
-                                                anchorOrigin={{ vertical, horizontal }}
-                                                open={openAlert}
-                                                onClose={handleCloseAlert}
-                                                message="Updated"
-                                                key={vertical + horizontal}
+                                            <UpdateSnackbarAlert
+                                                openAlert={openAlert}
+                                                onClose={() => setOpenAlert(false)}
                                             />
                                         </div>
                                     </div>

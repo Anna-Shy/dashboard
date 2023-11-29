@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from 'react';
 
+import { UpdateSnackbarAlert } from '../updateSnackbarAlert/updateSnackbarAlert';
+
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Box, Divider, Modal, TextField, Button } from '@mui/material';
-import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 import CheckIcon from '@mui/icons-material/Check';
 
 import './pieChartBox.scss'
@@ -13,10 +14,6 @@ interface Chart {
     userName: string;
     mistake: number;
     color: string;
-}
-
-interface alertState extends SnackbarOrigin {
-    openAlert: boolean;
 }
 
 const styleModal = {
@@ -51,13 +48,7 @@ const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadi
 export const PieChartBox = ({ title }: { title: string }) => {
     const [userData, setUserData] = useState<Chart[]>([]);
     const [openModal, setOpenModal] = useState(false);
-
-    const [stateAlert, setStateAlert] = useState<alertState>({
-        openAlert: false,
-        vertical: 'top',
-        horizontal: 'center',
-    });
-    const { vertical, horizontal, openAlert } = stateAlert;
+    const [openAlert, setOpenAlert] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:4000/mistake`)
@@ -66,9 +57,9 @@ export const PieChartBox = ({ title }: { title: string }) => {
             .catch(error => console.error('Error loading data:', error));
     }, []);
 
-    const handleClick = async (e: any, userId: number, newState: SnackbarOrigin) => {
+    const handleClick = async (e: any, userId: number) => {
         e.preventDefault();
-        setStateAlert({ ...newState, openAlert: true });
+        setOpenAlert(true);
 
         try {
             await axios.put(`http://localhost:4000/mistake`, userData.find(user => user.id === userId));
@@ -95,10 +86,6 @@ export const PieChartBox = ({ title }: { title: string }) => {
 
     const handleCloseModal = () => {
         setOpenModal(false);
-    };
-
-    const handleCloseAlert = () => {
-        setStateAlert({ ...stateAlert, openAlert: false });
     };
 
     // Ensure that userData is not empty before using it
@@ -146,18 +133,15 @@ export const PieChartBox = ({ title }: { title: string }) => {
                                                 size="medium"
                                                 variant="contained"
                                                 className='user-btn'
-                                                onClick={(e) => handleClick(e, user.id, { vertical: 'top', horizontal: 'center' })}
+                                                onClick={(e) => handleClick(e, user.id)}
                                                 startIcon={<CheckIcon />}
                                             >
                                                 Update
                                             </Button>
 
-                                            <Snackbar
-                                                anchorOrigin={{ vertical, horizontal }}
-                                                open={openAlert}
-                                                onClose={handleCloseAlert}
-                                                message="Updated"
-                                                key={vertical + horizontal}
+                                            <UpdateSnackbarAlert
+                                                openAlert={openAlert}
+                                                onClose={() => setOpenAlert(false)}
                                             />
                                         </div>
                                     </div>

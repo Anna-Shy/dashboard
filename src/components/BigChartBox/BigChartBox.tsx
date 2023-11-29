@@ -20,7 +20,7 @@ export const BigChartBox = (
             bigChartMonthData: Chart[];
         }) => {
             
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(false);
 
     const handleChange = () => {
         setChecked((prev) => !prev);
