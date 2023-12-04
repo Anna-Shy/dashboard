@@ -1,0 +1,64 @@
+@import "../../styles/variable.scss";
+
+.userInfoModal {
+  font-family: "Inter", sans-serif;
+  color: $dark-color;
+
+  &__title {
+    margin-bottom: 14px;
+  } 
+
+  .userInfoModal__user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 10px 5px 5px 5px;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+
+
+      width: 40%;
+    }
+
+    .user-color {
+      width: 25px;
+      height: 20px;
+      border-radius: 10px;
+    }
+
+    .user-title {
+      margin-left: 5px;
+    }
+
+    .user-inputBlock {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .user-input {
+      width: 20%;
+      margin: 0 5px;
+    }
+
+    .user-input-large{
+        width: 40%;
+        margin: 0 10px;
+    }
+
+    .user-btn {
+      padding: 5px 10px;
+      height: 70%;
+      color: $soft-color;
+      background-color: $main-bg;
+    }
+
+    .user-btn:hover {
+      color: $main-bg;
+      background-color: $soft-color;
+    }
+  }
+}

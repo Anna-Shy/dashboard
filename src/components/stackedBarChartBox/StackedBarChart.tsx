@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
-import { UpdateSnackbarAlert } from '../updateSnackbarAlert/updateSnackbarAlert';
+import { UpdateModal } from '../updateModal/UpdateModal';
 
 import { ComposedChart, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer } from 'recharts';
-import { Box, Divider, Modal, TextField, Button } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
 
 import './stackedBarChart.scss';
 
@@ -24,20 +22,7 @@ const meetingTotals = {
     'training': 0,
 };
 
-const styleModal = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    // border: '1px solid #384256',
-    border: 'none',
-    borderRadius: 5,
-    p: 4,
-};
-
-const colors = ['#f55658', '#8884d8', '#82ca9d', '#ffc658'];
+const userColors = ['#f55658', '#8884d8', '#82ca9d', '#ffc658'];
 
 export const StackedBarChart = ({ title }: { title: string }) => {
     const [userData, setUserData] = useState<Chart[]>([]);
@@ -112,88 +97,15 @@ export const StackedBarChart = ({ title }: { title: string }) => {
     return (
         <div className="starkedBarChart" onMouseDown={handleMouseDownModal}>
             <h4>{title}</h4>
-            <Modal
+            <UpdateModal
                 open={openModal}
                 onClose={handleCloseModal}
-                className='userInfoModal'
-            >
-                <Box sx={styleModal}>
-                    <h2 className="userInfoModal__title">Update amount of meeting</h2>
-                    <Divider />
-                    <div className="userInfoModal__context">
-                        {
-                            userData.map((user, key) => {
-                                return (
-                                    <div className="userInfoModal__user" key={user.id}>
-                                        <div className="user-info">
-                                            <div className="user-color" style={{ backgroundColor: colors[key % colors.length] }}></div>
-                                            <h3 className="user-title">{user.userName}</h3>
-                                        </div>
-
-                                        <div className="user-inputBlock">
-                                            <TextField
-                                                id={`outlined-number-${user.id}-oneOnone`}
-                                                name="oneOnone"
-                                                label="oneOnone"
-                                                type="number"
-                                                variant="outlined"
-                                                className='user-input'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                defaultValue={user.oneOnone}
-                                                onChange={(e) => handleChange(e, key)}
-                                            />
-                                            <TextField
-                                                id={`outlined-number-${user.id}-weekly`}
-                                                name="weekly"
-                                                label="Weekly"
-                                                type="number"
-                                                variant="outlined"
-                                                className='user-input'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                defaultValue={user.weekly}
-                                                onChange={(e) => handleChange(e, key)}
-                                            />
-                                            <TextField
-                                                id={`outlined-number-${user.id}-training`}
-                                                name="training"
-                                                label="Training"
-                                                type="number"
-                                                variant="outlined"
-                                                className='user-input'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                defaultValue={user.training}
-                                                onChange={(e) => handleChange(e, key)}
-                                            />
-
-                                            <Button
-                                                disabled={false}
-                                                size="medium"
-                                                variant="contained"
-                                                className='user-btn'
-                                                onClick={(e) => handleClick(e, user.id)}
-                                                startIcon={<CheckIcon />}
-                                            >
-                                                Update
-                                            </Button>
-
-                                            <UpdateSnackbarAlert
-                                                openAlert={openAlert}
-                                                onClose={() => setOpenAlert(false)}
-                                            />
-                                        </div>
-                                    </div>
-                                );
-                            })
-                        }
-                    </div>
-                </Box>
-            </Modal>
+                userData={userData}
+                handleChange={handleChange}
+                handleClick={handleClick}
+                openAlert={openAlert}
+                setOpenAlert={setOpenAlert}
+            />
 
             <div className="chart">
                 <ResponsiveContainer width="99%" height="100%">
@@ -207,7 +119,7 @@ export const StackedBarChart = ({ title }: { title: string }) => {
                         <Tooltip />
 
                         {keys.map((key, index) => (
-                            <Bar key={key} dataKey={key} stackId="a" fill={colors[index % colors.length]} />
+                            <Bar key={key} dataKey={key} stackId="a" fill={userColors[index % userColors.length]} />
                         ))}
                     </ComposedChart>
                 </ResponsiveContainer>

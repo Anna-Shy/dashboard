@@ -1,13 +1,11 @@
 import axios from "axios";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { UpdateSnackbarAlert } from '../updateSnackbarAlert/updateSnackbarAlert';
+import { UpdateModal } from '../updateModal/UpdateModal';
 
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { Box, Divider, Modal, TextField, Button } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
-import './pieChartBox.scss'
+import './pieChartBox.scss';
 
 interface Chart {
     id: number;
@@ -15,19 +13,6 @@ interface Chart {
     mistake: number;
     color: string;
 }
-
-const styleModal = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 500,
-    bgcolor: 'background.paper',
-    // border: '1px solid #384256',
-    border: 'none',
-    borderRadius: 5,
-    p: 4,
-};
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadius }:
@@ -45,7 +30,7 @@ const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadi
     );
 };
 
-export const PieChartBox = ({ title }: { title: string }) => {
+export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
     const [userData, setUserData] = useState<Chart[]>([]);
     const [openModal, setOpenModal] = useState(false);
     const [openAlert, setOpenAlert] = useState(false);
@@ -96,62 +81,16 @@ export const PieChartBox = ({ title }: { title: string }) => {
     return (
         <div className="starkedBarChart" onMouseDown={handleMouseDownModal}>
             <h4>{title}</h4>
-            <Modal
+            <UpdateModal
                 open={openModal}
                 onClose={handleCloseModal}
-                className='userInfoModal'
-            >
-                <Box sx={styleModal}>
-                    <h2 className="userInfoModal__title">Update amount of mistake</h2>
-                    <Divider />
-                    <div className="userInfoModal__context">
-                        {
-                            userData.map((user, key) => {
-                                return (
-                                    <div className="userInfoModal__user" key={user.id}>
-                                        <div className="user-info">
-                                            <div className="user-color" style={{ backgroundColor: user.color }}></div>
-                                            <h3 className="user-title">{user.userName}</h3>
-                                        </div>
-
-                                        <div className="user-inputBlock">
-                                            <TextField
-                                                id="outlined-number"
-                                                label="Mistake"
-                                                type="number"
-                                                variant="outlined"
-                                                className='user-input'
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                defaultValue={user.mistake}
-                                                onChange={(e) => handleChange(e, key)}
-                                            />
-
-                                            <Button
-                                                disabled={false}
-                                                size="medium"
-                                                variant="contained"
-                                                className='user-btn'
-                                                onClick={(e) => handleClick(e, user.id)}
-                                                startIcon={<CheckIcon />}
-                                            >
-                                                Update
-                                            </Button>
-
-                                            <UpdateSnackbarAlert
-                                                openAlert={openAlert}
-                                                onClose={() => setOpenAlert(false)}
-                                            />
-                                        </div>
-                                    </div>
-                                );
-                            })
-                        }
-                    </div>
-                </Box>
-            </Modal>
-
+                userData={userData}
+                handleChange={handleChange}
+                handleClick={handleClick}
+                openAlert={openAlert}
+                setOpenAlert={setOpenAlert}
+            />
+            
             <div className="chart">
                 <ResponsiveContainer width="99%" height="99%">
                     <PieChart>
@@ -176,5 +115,6 @@ export const PieChartBox = ({ title }: { title: string }) => {
                 </ResponsiveContainer>
             </div>
         </div>
-    )
-}
+    );
+};
+
