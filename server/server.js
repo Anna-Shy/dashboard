@@ -37,54 +37,23 @@ app.get("/meeting", (req, res) => {
   handleDatabaseQuery("meeting", res);
 });
 
-app.put("/mistake", (req, res) => {
-  const userId = req.body.id;
-  const mistake = req.body.mistake;
-
-  db.query(
-    "UPDATE mistake SET `mistake`= ? WHERE id = ?",
-    [mistake, userId],
-    (err, result) => {
-      if (err) return res.send(err);
-      return res.json(result);
-    }
-  );
-});
-
-app.put("/meeting", (req, res) => {
+const handleUpdateDatabaseQuery = (tableName, columns) => (req, res) => {
   const userId = req.body.id;
 
-  const values = [
-    req.body.oneOnone,
-    req.body.weekly,
-    req.body.training,
-  ];
+  const values = columns.map(column => req.body[column]);
 
   db.query(
-    "UPDATE meeting SET `oneOnone`= ?, `weekly`= ?, `training`= ? WHERE id = ?",
+    `UPDATE ${tableName} SET ${columns.map(col => `\`${col}\`= ?`).join(', ')} WHERE id = ?`,
     [...values, userId],
     (err, result) => {
       if (err) return res.send(err);
       return res.json(result);
     });
-});
+};
 
-app.put("/userinfo", (req, res) => {
-  const userId = req.body.id;
-
-  const values = [
-    req.body.projectTitle,
-    req.body.projectStatus,
-  ];
-
-  db.query(
-    "UPDATE userinfo SET `projectTitle`= ?, `projectStatus`= ? WHERE id = ?",
-    [...values, userId],
-    (err, result) => {
-      if (err) return res.send(err);
-      return res.json(result);
-    });
-});
+app.put("/userinfo", handleUpdateDatabaseQuery("userinfo", ["projectTitle", "projectStatus"]));
+app.put("/mistake", handleUpdateDatabaseQuery("mistake", ["mistake"]));
+app.put("/meeting", handleUpdateDatabaseQuery("meeting", ["oneOnone", "weekly", "training"]));
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");
