@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
+import { userColors } from '../../source/data/MainData';
 import { UpdateModal } from '../updateModal/UpdateModal';
 
 import { ComposedChart, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer } from 'recharts';
@@ -21,8 +22,6 @@ const meetingTotals = {
     'weekly': 0,
     'training': 0,
 };
-
-const userColors = ['#f55658', '#8884d8', '#82ca9d', '#ffc658'];
 
 export const StackedBarChart = ({ title }: { title: string }) => {
     const [userData, setUserData] = useState<Chart[]>([]);

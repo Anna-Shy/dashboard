@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
 
+import { userColors } from "../../source/data/MainData";
 import { UpdateModal } from '../updateModal/UpdateModal';
 
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
@@ -79,7 +80,7 @@ export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
     }
 
     return (
-        <div className="starkedBarChart" onMouseDown={handleMouseDownModal}>
+        <div className="pieChartBox" onMouseDown={handleMouseDownModal}>
             <h4>{title}</h4>
             <UpdateModal
                 open={openModal}
@@ -107,8 +108,8 @@ export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
                             label={renderCustomizedLabel}
                             paddingAngle={5}
                         >
-                            {userData.map((item) => (
-                                <Cell key={item.userName} stroke={item.color} fill={item.color} />
+                            {userData.map((item, key) => (
+                                <Cell key={item.userName} stroke={userColors[key % userColors.length]} fill={userColors[key % userColors.length]} />
                             ))}
                         </Pie>
                     </PieChart>

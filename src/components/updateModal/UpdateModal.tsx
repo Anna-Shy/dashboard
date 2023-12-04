@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { userColors } from '../../source/data/MainData';
 import { UpdateSnackbarAlert } from '../updateSnackbarAlert/UpdateSnackbarAlert';
 
 import { Modal, Box, Divider, TextField, Button } from '@mui/material';
@@ -11,7 +12,6 @@ interface User {
   id: number;
   userName: string;
   mistake?: number;
-  color?: string;
   oneOnone?: number;
   weekly?: number;
   training?: number;
@@ -39,8 +39,6 @@ const styleModal = {
   borderRadius: 5,
   p: 4,
 };
-
-const userColors = ['#f55658', '#8884d8', '#82ca9d', '#ffc658'];
 
 const renderTextField = (user: User, key: number, field: string, handleChange: (e: any, index: number) => void) => (
   user[field] && (
