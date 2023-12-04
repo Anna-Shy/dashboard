@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
+import { projectStatusColors } from '../../source/data/MainData';
 import { UpdateModal } from '../updateModal/UpdateModal';
 
 import './userProjectList.scss';
@@ -9,7 +10,7 @@ interface User {
     id: number;
     userName: string;
     projectTitle: string;
-    projectStatus: boolean;
+    projectStatus: number;
 }
 
 export const UserProjectList = () => {
@@ -58,6 +59,12 @@ export const UserProjectList = () => {
         setOpenModal(false);
     };
 
+    const getStatusColor = (status: number): string => {
+        const defaultColor = "#757D8B";
+
+        return projectStatusColors[status] || defaultColor;
+    };
+
     // Ensure that userData is not empty before using it
     if (userData.length === 0) {
         return <p>Loading...</p>;
@@ -82,7 +89,26 @@ export const UserProjectList = () => {
                         {/* only first word */}
                         {/* <p className="item-name">{user.username.substring(0, user.username.indexOf(' '))}</p> */}
                         <p className="item-project">{user.projectTitle}</p>
-                        <p className="item-status" >{user.projectStatus}</p>
+                        <p
+                            className="item-status"
+                            // style={{
+                            //     color:
+                            //         user.projectStatus === 0
+                            //             ? "#757D8B"
+                            //             : user.projectStatus === 25
+                            //                 ? "tomato"
+                            //                 : user.projectStatus === 50
+                            //                     ? "yellow"
+                            //                     : user.projectStatus === 75
+                            //                         ? "orange"
+                            //                         : "limegreen",
+                            // }}
+                            style={{
+                                color: getStatusColor(user.projectStatus),
+                            }}
+                        >
+                            {user.projectStatus}%
+                        </p>
                     </div>
                 ))}
             </div>

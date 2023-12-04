@@ -8,15 +8,15 @@
     padding: 8px;
     border-bottom: 1px solid $soft-bg;
 
-    .item-name {
-      width: 10%;
-    }
-
     .item-project {
       font-size: 10px;
       text-align: center;
       height: 20px;
       width: 60%;
+    }
+
+    .item-status {
+      font-weight: bold;
     }
   }
 }

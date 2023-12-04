@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { userColors } from '../../source/data/MainData';
+import { userColors, percentageOptionsProjectStatus } from '../../source/data/MainData';
 import { UpdateSnackbarAlert } from '../updateSnackbarAlert/UpdateSnackbarAlert';
 
-import { Modal, Box, Divider, TextField, Button } from '@mui/material';
+import { Modal, Box, Divider, TextField, Button, Select, MenuItem } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 
 import './updateModal.scss';
@@ -12,7 +12,7 @@ interface User {
   id: number;
   userName: string;
   projectTitle?: string | null;
-  projectStatus?: boolean;
+  projectStatus?: number | null;
   mistake?: number;
   oneOnone?: number;
   weekly?: number;
@@ -43,21 +43,41 @@ const styleModal = {
 };
 
 const renderTextField = (user: User, key: number, type: string, field: string, handleChange: (e: any, index: number) => void) => (
-  user[field] && (
-    <TextField
-      id={`outlined-number-${user.id}-${field}`}
-      label={field}
-      name={field}
-      type={type}
-      variant="outlined"
-      className={`user-input${(field === 'mistake' || field === 'projectTitle') ? '-large' : ''}`}
-      InputLabelProps={{
-        shrink: true,
-      }}
-      defaultValue={user[field]}
-      onChange={(e) => handleChange(e, key)}
-    />
-  )
+  type === 'select' ?
+    user[field] && (
+      <>
+        <Select
+          id={`select-number-${user.id}-${field}`}
+          label={field}
+          className={`user-input${(field === 'projectTitle') ? '-large' : '-md'}`}
+          name={field}
+          defaultValue={user[field]}
+          onChange={(e) => handleChange(e, key)}
+        >
+          {percentageOptionsProjectStatus.map((option) => (
+            <MenuItem key={option} value={option}>
+              {`${option}%`}
+            </MenuItem>
+          ))}
+        </Select>
+      </>
+    )
+    :
+    user[field] && (
+      <TextField
+        id={`outlined-number-${user.id}-${field}`}
+        label={field}
+        name={field}
+        type={type}
+        variant="outlined"
+        className={`user-input${(field === 'mistake' || field === 'projectTitle') ? '-large' : ''}`}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        defaultValue={user[field]}
+        onChange={(e) => handleChange(e, key)}
+      />
+    )
 );
 
 
@@ -84,7 +104,7 @@ export const UpdateModal: React.FC<UpdateModal> = ({
               </div>
               <div className="user-inputBlock">
                 {renderTextField(user, key, 'text', 'projectTitle', handleChange)}
-                {renderTextField(user, key, 'number', 'projectStatus', handleChange)}
+                {renderTextField(user, key, 'select', 'projectStatus', handleChange)}
 
                 {renderTextField(user, key, 'number', 'mistake', handleChange)}
 

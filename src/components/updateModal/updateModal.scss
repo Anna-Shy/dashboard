@@ -6,7 +6,7 @@
 
   &__title {
     margin-bottom: 14px;
-  } 
+  }
 
   .userInfoModal__user {
     display: flex;
@@ -18,7 +18,6 @@
     .user-info {
       display: flex;
       align-items: center;
-
 
       width: 40%;
     }
@@ -44,9 +43,14 @@
       margin: 0 5px;
     }
 
-    .user-input-large{
-        width: 40%;
-        margin: 0 10px;
+    .user-input-large {
+      width: 40%;
+      margin: 0 10px;
+    }
+
+    .user-input-md {
+      width: 25%;
+      margin: 0 10px;
     }
 
     .user-btn {
