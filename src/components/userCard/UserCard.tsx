@@ -6,7 +6,7 @@ import './userCard.scss';
 interface Employee {
   id: number;
   image: string;
-  username: string;
+  userName: string;
   startWorkDate: string;
   position: string;
   timeDayWork: object | any;
@@ -24,11 +24,11 @@ export const UserCard = ({ userInfoData }: { userInfoData: Employee[] }) => {
   const calculateWorkDuration = (startWorkDate: string): string => {
     const start = moment(startWorkDate);
     const today = moment();
-  
+
     const years = today.diff(start, 'years');
     const months = today.diff(start, 'months') % 12;
     const days = today.diff(start, 'days') % 30;
-  
+
     if (years === 0) {
       return `${months} month ${days} days`;
     } else {
@@ -71,7 +71,7 @@ export const UserCard = ({ userInfoData }: { userInfoData: Employee[] }) => {
           <div className="box userInfo" key={key}>
             <div className="userInfo-title">
               <img className="icon" src={user.image} alt="icon" />
-              <h2 className="name">{user.username}</h2>
+              <h2 className="name">{user.userName}</h2>
             </div>
 
             <div className="box-row">

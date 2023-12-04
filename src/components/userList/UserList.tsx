@@ -2,20 +2,20 @@ import { userColors } from '../../source/data/MainData';
 
 import './userList.scss';
 
-interface Employee {
+interface User {
     id: number;
-    username: string;
+    userName: string;
     country: string;
     color: string;
 }
 
-export const UserList = ({ userInfoData }: { userInfoData: Employee[] }) => {
+export const UserList = ({ userInfoData }: { userInfoData: User[] }) => {
     return (
         <div className="userMainInfo">
             <div className="userMainInfo-list">
                 {userInfoData.map((user: any, key) => (
                     <div className="userMainInfo-item" key={user.id}>
-                        <p className="item-name">{user.username}
+                        <p className="item-name">{user.userName}
                             <span className='item-country'> <sup>{user.country}</sup></span>
                         </p>
 

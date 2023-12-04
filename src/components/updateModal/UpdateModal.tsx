@@ -11,6 +11,8 @@ import './updateModal.scss';
 interface User {
   id: number;
   userName: string;
+  projectTitle?: string | null;
+  projectStatus?: boolean;
   mistake?: number;
   oneOnone?: number;
   weekly?: number;
@@ -40,15 +42,15 @@ const styleModal = {
   p: 4,
 };
 
-const renderTextField = (user: User, key: number, field: string, handleChange: (e: any, index: number) => void) => (
+const renderTextField = (user: User, key: number, type: string, field: string, handleChange: (e: any, index: number) => void) => (
   user[field] && (
     <TextField
       id={`outlined-number-${user.id}-${field}`}
       label={field}
       name={field}
-      type="number"
+      type={type}
       variant="outlined"
-      className={`user-input${field === 'mistake' ? '-large' : ''}`}
+      className={`user-input${(field === 'mistake' || field === 'projectTitle') ? '-large' : ''}`}
       InputLabelProps={{
         shrink: true,
       }}
@@ -81,10 +83,14 @@ export const UpdateModal: React.FC<UpdateModal> = ({
                 <h3 className="user-title">{user.userName}</h3>
               </div>
               <div className="user-inputBlock">
-                {renderTextField(user, key, 'mistake', handleChange)}
-                {renderTextField(user, key, 'oneOnone', handleChange)}
-                {renderTextField(user, key, 'weekly', handleChange)}
-                {renderTextField(user, key, 'training', handleChange)}
+                {renderTextField(user, key, 'text', 'projectTitle', handleChange)}
+                {renderTextField(user, key, 'number', 'projectStatus', handleChange)}
+
+                {renderTextField(user, key, 'number', 'mistake', handleChange)}
+
+                {renderTextField(user, key, 'number', 'oneOnone', handleChange)}
+                {renderTextField(user, key, 'number', 'weekly', handleChange)}
+                {renderTextField(user, key, 'number', 'training', handleChange)}
 
                 <Button
                   disabled={false}

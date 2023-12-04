@@ -69,6 +69,23 @@ app.put("/meeting", (req, res) => {
     });
 });
 
+app.put("/userinfo", (req, res) => {
+  const userId = req.body.id;
+
+  const values = [
+    req.body.projectTitle,
+    req.body.projectStatus,
+  ];
+
+  db.query(
+    "UPDATE userinfo SET `projectTitle`= ?, `projectStatus`= ? WHERE id = ?",
+    [...values, userId],
+    (err, result) => {
+      if (err) return res.send(err);
+      return res.json(result);
+    });
+});
+
 app.listen(4000, () => {
   console.log("Server is running on port 4000");
 });

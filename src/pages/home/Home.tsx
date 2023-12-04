@@ -34,7 +34,7 @@ const Home = () => {
                     <BigChartBox title={'Amount of Incident'} bigChartMonthData={bigChartMonthData} bigChartYearData={bigChartYearData} />
                 </div>
                 <div className="box box3">
-                    <UserProjectList userInfoData={userInfoData} />
+                    <UserProjectList />
                 </div>
                 <div className="box box4">
                     <StackedBarChart title={'Amount of Meeting'} />
