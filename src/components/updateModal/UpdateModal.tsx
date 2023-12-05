@@ -44,14 +44,14 @@ const styleModal = {
 
 const renderTextField = (user: User, key: number, type: string, field: string, handleChange: (e: any, index: number) => void) => (
   type === 'select' ?
-    user[field] && (
+    user[field] !== undefined && (
       <>
         <Select
           id={`select-number-${user.id}-${field}`}
           label={field}
           className={`user-input${(field === 'projectTitle') ? '-large' : '-md'}`}
           name={field}
-          defaultValue={user[field]}
+          value={String(user[field])}
           onChange={(e) => handleChange(e, key)}
         >
           {percentageOptionsProjectStatus.map((option) => (
@@ -63,7 +63,7 @@ const renderTextField = (user: User, key: number, type: string, field: string, h
       </>
     )
     :
-    user[field] && (
+    user[field] !== undefined && (
       <TextField
         id={`outlined-number-${user.id}-${field}`}
         label={field}
@@ -74,12 +74,11 @@ const renderTextField = (user: User, key: number, type: string, field: string, h
         InputLabelProps={{
           shrink: true,
         }}
-        defaultValue={user[field]}
+        value={String(user[field])}
         onChange={(e) => handleChange(e, key)}
       />
     )
 );
-
 
 export const UpdateModal: React.FC<UpdateModal> = ({
   open,
