@@ -65,7 +65,7 @@ export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
     };
 
     const handleMouseDownModal = (event: React.KeyboardEvent | React.MouseEvent) => {
-        if (event.altKey) {
+        if (event.altKey || event.detail === 3) {
             setOpenModal(true);
         }
     };
