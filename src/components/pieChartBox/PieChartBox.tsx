@@ -101,6 +101,7 @@ export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
                 open={openModal}
                 onClose={handleCloseModal}
                 userData={userData}
+                title={'Update amount of mistake'}
                 handleChange={handleChange}
                 handleClick={handleClick}
                 openAlert={openAlert}

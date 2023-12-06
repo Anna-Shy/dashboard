@@ -76,6 +76,7 @@ export const UserProjectList = () => {
                 open={openModal}
                 onClose={handleCloseModal}
                 userData={userData}
+                title={'Update project'}
                 handleChange={handleChange}
                 handleClick={handleClick}
                 openAlert={openAlert}

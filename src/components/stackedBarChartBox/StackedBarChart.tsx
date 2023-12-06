@@ -100,6 +100,7 @@ export const StackedBarChart = ({ title }: { title: string }) => {
                 open={openModal}
                 onClose={handleCloseModal}
                 userData={userData}
+                title={'Update amount of meeting'}
                 handleChange={handleChange}
                 handleClick={handleClick}
                 openAlert={openAlert}

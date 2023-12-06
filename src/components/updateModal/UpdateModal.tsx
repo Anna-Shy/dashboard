@@ -28,6 +28,7 @@ interface UpdateModal {
   open: boolean;
   onClose: () => void;
   userData: User[];
+  title: string;
   handleChange: (e: any, index: number) => void;
   handleClick: (e: any, userId: number) => void;
   openAlert: boolean;
@@ -90,6 +91,7 @@ export const UpdateModal: React.FC<UpdateModal> = ({
   open,
   onClose,
   userData,
+  title,
   handleChange,
   handleClick,
   openAlert,
@@ -98,7 +100,7 @@ export const UpdateModal: React.FC<UpdateModal> = ({
   return (
     <Modal open={open} onClose={onClose} className="userInfoModal">
       <Box sx={styleModal}>
-        <h2 className="userInfoModal__title">Update amount of mistake</h2>
+        <h2 className="userInfoModal__title">{title}</h2>
         <Divider />
         <div className="userInfoModal__context">
           {userData.map((user, key) => (

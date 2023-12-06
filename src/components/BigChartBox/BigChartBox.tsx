@@ -119,6 +119,7 @@ export const BigChartBox = ({ title }: { title: string }) => {
                 open={openModal}
                 onClose={handleCloseModal}
                 userData={userData}
+                title={'Update amount of incident'}
                 handleChange={handleChange}
                 handleClick={handleClick}
                 openAlert={openAlert}
