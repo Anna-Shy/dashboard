@@ -37,6 +37,11 @@ app.get("/meeting", (req, res) => {
   handleDatabaseQuery("meeting", res);
 });
 
+app.get("/incident", (req, res) => {
+  handleDatabaseQuery("incident", res);
+});
+
+
 const handleUpdateDatabaseQuery = (tableName, columns) => (req, res) => {
   const userId = req.body.id;
 
@@ -54,6 +59,7 @@ const handleUpdateDatabaseQuery = (tableName, columns) => (req, res) => {
 app.put("/userinfo", handleUpdateDatabaseQuery("userinfo", ["projectTitle", "projectStatus"]));
 app.put("/mistake", handleUpdateDatabaseQuery("mistake", ["mistake"]));
 app.put("/meeting", handleUpdateDatabaseQuery("meeting", ["oneOnone", "weekly", "training"]));
+app.put("/incident", handleUpdateDatabaseQuery("incident", ["week1", "week2", "week3", "week4"]));
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");

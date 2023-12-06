@@ -7,8 +7,6 @@ import { StackedBarChart } from '../../components/stackedBarChartBox/StackedBarC
 import { UserList } from '../../components/userList/UserList'
 import { UserProjectList } from '../../components/userProjectList/UserProjectList'
 
-import { bigChartYearData, bigChartMonthData } from '../../source/data/BigChartData';
-
 import './home.scss'
 
 const Home = () => {
@@ -31,7 +29,7 @@ const Home = () => {
                     <UserList userInfoData={userInfoData} />
                 </div>
                 <div className="box box2">
-                    <BigChartBox title={'Amount of Incident'} bigChartMonthData={bigChartMonthData} bigChartYearData={bigChartYearData} />
+                    <BigChartBox title={'Amount of Incident'} />
                 </div>
                 <div className="box box3">
                     <UserProjectList />

@@ -13,6 +13,10 @@ interface User {
   userName: string;
   projectTitle?: string | null;
   projectStatus?: number | null;
+  week1?: number;
+  week2?: number;
+  week3?: number;
+  week4?: number;
   mistake?: number;
   oneOnone?: number;
   weekly?: number;
@@ -35,7 +39,7 @@ const styleModal = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 550,
+  width: 600,
   bgcolor: 'background.paper',
   border: 'none',
   borderRadius: 5,
@@ -104,6 +108,11 @@ export const UpdateModal: React.FC<UpdateModal> = ({
               <div className="user-inputBlock">
                 {renderTextField(user, key, 'text', 'projectTitle', handleChange)}
                 {renderTextField(user, key, 'select', 'projectStatus', handleChange)}
+
+                {renderTextField(user, key, 'number', 'week1', handleChange)}
+                {renderTextField(user, key, 'number', 'week2', handleChange)}
+                {renderTextField(user, key, 'number', 'week3', handleChange)}
+                {renderTextField(user, key, 'number', 'week4', handleChange)}
 
                 {renderTextField(user, key, 'number', 'mistake', handleChange)}
 

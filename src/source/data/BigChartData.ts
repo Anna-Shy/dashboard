@@ -111,6 +111,7 @@ export const bigChartMonthData = [
         kris: 3,
     },
     {
+
         month: '4Week',
         dima: 103,
         liza: 5,
@@ -118,3 +119,34 @@ export const bigChartMonthData = [
         kris: 46,
     }
 ]
+
+// const bigChartMonthData = [
+//     {
+//         userName: 'kris',
+//         week1: 99,
+//         week2: 34,
+//         week3: 67,
+//         week4: 23,
+//     },
+//     {
+//         userName: 'eugen',
+//         week1: 34,
+//         week2: 65,
+//         week3: 3,
+//         week4: 79,
+//     },
+//     {
+//         userName: 'alex',
+//         week1: 45,
+//         week2: 34,
+//         week3: 7,
+//         week4: 34,
+//     },
+//     {
+//         userName: 'ivan',
+//         week1: 76,
+//         week2: 1,
+//         week3: 34,
+//         week4: 98,
+//     },
+// ]
