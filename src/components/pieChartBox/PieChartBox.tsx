@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { userColors } from "../../source/data/MainData";
 import { UpdateModal } from '../updateModal/UpdateModal';
 
+import Switch from '@mui/material/Switch';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 import './pieChartBox.scss';
@@ -33,6 +34,7 @@ const renderCustomizedLabel = ({ value, cx, cy, midAngle, innerRadius, outerRadi
 
 export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
     const [userData, setUserData] = useState<Chart[]>([]);
+    const [checked, setChecked] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [openAlert, setOpenAlert] = useState(false);
 
@@ -74,6 +76,10 @@ export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
         setOpenModal(false);
     };
 
+    const handleChangeSwitch = () => {
+        setChecked((prev) => !prev);
+    };
+
     // Ensure that userData is not empty before using it
     if (userData.length === 0) {
         return <p>Loading...</p>;
@@ -81,7 +87,16 @@ export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
 
     return (
         <div className="pieChartBox" onMouseDown={handleMouseDownModal}>
-            <h4>{title}</h4>
+            <div className="pieChartBox-row">
+                <h4>{title}</h4>
+
+                <div className="pieChartBox-switch">
+                    <p className="switch-text">Month</p>
+                    <Switch checked={checked} onChange={handleChangeSwitch} color="default" />
+                    <p className="switch-text">Year</p>
+                </div>
+            </div>
+
             <UpdateModal
                 open={openModal}
                 onClose={handleCloseModal}
@@ -91,12 +106,13 @@ export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
                 openAlert={openAlert}
                 setOpenAlert={setOpenAlert}
             />
-            
+
             <div className="chart">
                 <ResponsiveContainer width="99%" height="99%">
                     <PieChart>
                         <Pie
-                            data={userData}
+                            //need change
+                            data={checked ? userData : userData}
                             dataKey="mistake"
                             cx={150}
                             cy={110}

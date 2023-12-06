@@ -1,8 +1,27 @@
+@import "../../styles/variable.scss";
+
 .pieChartBox {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  &-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-switch {
+    display: flex;
+    align-items: center;
+
+    .switch-text {
+      font-size: 12px;
+      font-weight: bold;
+      color: $soft-grey-color;
+    }
+  }
 
   .chart {
     width: 100%;
