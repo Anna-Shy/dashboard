@@ -34,16 +34,18 @@ interface UpdateModal {
   setOpenAlert: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const isMobile = window.innerWidth <= 426;
+
 const styleModal = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: isMobile ? '95%' : 600,
   bgcolor: '#FAFAFA',
   border: 'none',
   borderRadius: 5,
-  p: 4,
+  p: isMobile ? 2 : 4,
 };
 
 const renderTextField = (user: User, key: number, type: string, field: string, handleChange: (e: any, index: number) => void) => (
