@@ -1,7 +1,9 @@
 import express from 'express';
 import mysql from 'mysql';
 import cors from 'cors';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
+const PORT = process.env.PORT || 4000;
 const app = express();
 
 app.use(cors());
@@ -61,6 +63,8 @@ app.put("/mistake", handleUpdateDatabaseQuery("mistake", ["mistake"]));
 app.put("/meeting", handleUpdateDatabaseQuery("meeting", ["oneOnone", "weekly", "training"]));
 app.put("/incident", handleUpdateDatabaseQuery("incident", ["week1", "week2", "week3", "week4"]));
 
-app.listen(4000, () => {
-  console.log("Server is running on port 4000");
+app.use('/', createProxyMiddleware({ target: `http://localhost:${PORT}`, changeOrigin: true }));
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
