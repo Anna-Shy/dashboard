@@ -10,6 +10,11 @@ interface User {
 }
 
 export const UserList = ({ userInfoData }: { userInfoData: User[] }) => {
+    // Ensure that userInfoData is not empty before using it
+    if (userInfoData.length === 0) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className="userMainInfo">
             <div className="userMainInfo-list">
