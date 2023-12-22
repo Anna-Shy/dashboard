@@ -87,23 +87,9 @@ export const UserProjectList = () => {
                 {userData.map((user: any) => (
                     <div className="userProject-item" key={user.id}>
                         <p className="item-name">{user.userName}</p>
-                        {/* only first word */}
-                        {/* <p className="item-name">{user.username.substring(0, user.username.indexOf(' '))}</p> */}
                         <p className="item-project">{user.projectTitle}</p>
                         <p
                             className="item-status"
-                            // style={{
-                            //     color:
-                            //         user.projectStatus === 0
-                            //             ? "#757D8B"
-                            //             : user.projectStatus === 25
-                            //                 ? "tomato"
-                            //                 : user.projectStatus === 50
-                            //                     ? "yellow"
-                            //                     : user.projectStatus === 75
-                            //                         ? "orange"
-                            //                         : "limegreen",
-                            // }}
                             style={{
                                 color: getStatusColor(user.projectStatus),
                             }}

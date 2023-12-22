@@ -8,15 +8,28 @@
     padding: 8px;
     border-bottom: 1px solid $soft-bg;
 
+    .item-name {
+      width: 22%;
+    }
+
     .item-project {
       font-size: 10px;
+      margin: 0 5px;
       text-align: center;
       height: 20px;
-      width: 60%;
+      max-width: 60%;
+      text-wrap: wrap;
+      overflow-y: auto;
+    }
+
+    .item-project::-webkit-scrollbar {
+      display: none;
     }
 
     .item-status {
       font-weight: bold;
+      width: 16%;
+      text-align: center;
     }
   }
 }
