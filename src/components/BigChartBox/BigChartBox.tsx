@@ -1,17 +1,26 @@
-import { useState, useEffect } from 'react';
-import axios from "axios";
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
 import { userColors } from '../../source/data/MainData';
 import { UpdateModal } from '../updateModal/UpdateModal';
 
-import Switch from '@mui/material/Switch';
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { months } from '../../source/data/MainData';
+
+import {
+    AreaChart,
+    Area,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+} from 'recharts';
 
 import './bigChartBox.scss';
 
 interface Chart {
     id: number;
     userName: string;
+    month: string;
     week1: number;
     week2: number;
     week3: number;
@@ -20,23 +29,69 @@ interface Chart {
 }
 
 const incidentTotals = {
-    'week1': 0,
-    'week2': 0,
-    'week3': 0,
-    'week4': 0,
+    week1: 0,
+    week2: 0,
+    week3: 0,
+    week4: 0,
 };
+
+const ScrollspyItem = ({ id, label, isActive }: { id: string; label: string; isActive: boolean }) => (
+    <li className='list-item'>
+        <a className={`item-link ${isActive ? 'active' : ''}`} href={`#${id}`}>
+            <div className={`item-circle ${isActive ? 'active' : ''}`}></div>
+        </a>
+    </li>
+);
 
 export const BigChartBox = ({ title }: { title: string }) => {
     const [userData, setUserData] = useState<Chart[]>([]);
-    const [checked, setChecked] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [openAlert, setOpenAlert] = useState(false);
+    const [activeSection, setActiveSection] = useState<string | null>(null);
+
+    const scrollspyRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         fetch('http://localhost:4000/incident')
-            .then(response => response.json())
-            .then(data => setUserData(data))
-            .catch(error => console.error('Error loading data:', error));
+            .then((response) => response.json())
+            .then((data) => setUserData(data))
+            .catch((error) =>
+                console.error('Error loading data:', error)
+            );
+    }, []);
+
+    const handleScroll = () => {
+        if (scrollspyRef.current) {
+            const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+            const sectionOffsets = months.map((month) => ({
+                id: month,
+                offset: (scrollspyRef.current?.getBoundingClientRect().top || 0) + window.scrollY,
+            }));
+
+            let newActiveSection: string | null = null;
+
+            for (const section of sectionOffsets) {
+                if (
+                    scrollY >= section.offset &&
+                    scrollY < (section.offset + (scrollspyRef.current?.clientHeight || 0))
+                ) {
+                    newActiveSection = section.id;
+                    break;
+                }
+            }
+
+            setActiveSection(newActiveSection);
+        }
+        console.log('handleScroll is called!');
+    };
+
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
 
     const handleClick = async (e: any, userId: number) => {
@@ -74,20 +129,9 @@ export const BigChartBox = ({ title }: { title: string }) => {
         { week1: 0, week2: 0, week3: 0, week4: 0 }
     );
 
-    const bigBoxData = Object.keys(incidentTotals).map(incident => ({
-        weeks: incident,
-        ...Object.fromEntries(
-            userData.map(user => [user.userName, user[incident]])
-        ),
-    }));
-
-    const keys = Object.keys(bigBoxData[0]).filter(key => key !== 'weeks');
-
-    const handleChangeSwitch = () => {
-        setChecked((prev) => !prev);
-    };
-
-    const handleMouseDownModal = (event: React.KeyboardEvent | React.MouseEvent) => {
+    const handleMouseDownModal = (
+        event: React.KeyboardEvent | React.MouseEvent
+    ) => {
         if (event.altKey || event.detail === 3) {
             setOpenModal(true);
         }
@@ -104,17 +148,6 @@ export const BigChartBox = ({ title }: { title: string }) => {
 
     return (
         <div className="bigChartBox" onMouseDown={handleMouseDownModal}>
-            <div className="bigChartBox-row">
-                <h4>{title}</h4>
-
-                <div className="bigChartBox-switch">
-                    <p className="switch-text">Month</p>
-                    <Switch checked={checked} onChange={handleChangeSwitch} color="default" />
-                    <p className="switch-text">Year</p>
-                </div>
-
-            </div>
-
             <UpdateModal
                 open={openModal}
                 onClose={handleCloseModal}
@@ -126,34 +159,75 @@ export const BigChartBox = ({ title }: { title: string }) => {
                 setOpenAlert={setOpenAlert}
             />
 
-            <div className="chart">
-                <ResponsiveContainer width="99%" height="100%">
-                    <AreaChart
-                        //need change
-                        data={checked ? bigBoxData : bigBoxData}
-                        margin={{
-                            top: 10,
-                            right: 30,
-                            left: 0,
-                            bottom: 0,
-                        }}
-                    >
-                        <XAxis dataKey="weeks" />
-                        <YAxis />
-                        <Tooltip />
-                        {keys.map((key, index) => (
-                            <Area
-                                key={key}
-                                dataKey={key}
-                                type="monotone"
-                                stackId="1"
-                                stroke={userColors[index % userColors.length]}
-                                fill={userColors[index % userColors.length]}
+            <div className="bigChartBox-row" ref={scrollspyRef}>
+                <div className="bigChartBox-charts">
+                    {months.map((month, index) => {
+                        const monthlyUserData = userData.filter(
+                            (user) => user.currentMonth === month
+                        );
+
+                        const monthlyData = Object.keys(incidentTotals).map((incident) => ({
+                            weeks: incident,
+                            ...Object.fromEntries(
+                                monthlyUserData.map((user) => [user.userName, user[incident]])
+                            ),
+                        }));
+
+                        const keys = Object.keys(monthlyData[0]).filter(
+                            (key) => key !== 'weeks'
+                        );
+
+                        return (
+                            <div className="charts-area" id={month} key={index}>
+                                <h4 className="charts-title">{title} ({month})</h4>
+
+                                <ResponsiveContainer
+                                    className="charts-chart"
+                                    width="99%"
+                                    height="100%"
+                                >
+                                    <AreaChart
+                                        data={monthlyData}
+                                        margin={{
+                                            top: 10,
+                                            right: 30,
+                                            left: 0,
+                                            bottom: 0,
+                                        }}
+                                    >
+                                        <XAxis dataKey="weeks" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        {keys.map((key, index) => (
+                                            <Area
+                                                key={key}
+                                                dataKey={key}
+                                                type="monotone"
+                                                stackId="1"
+                                                stroke={userColors[index % userColors.length]}
+                                                fill={userColors[index % userColors.length]}
+                                            />
+                                        ))}
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <nav className='bigChartBox-menu'>
+                    <ul className='bigChartBox-list'>
+                        {months.map((month) => (
+                            <ScrollspyItem
+                                key={month}
+                                id={month}
+                                label={`(${month})`}
+                                isActive={month === activeSection}
                             />
                         ))}
-                    </AreaChart>
-                </ResponsiveContainer>
+                    </ul>
+                </nav>
             </div>
         </div>
-    )
-}
+    );
+};

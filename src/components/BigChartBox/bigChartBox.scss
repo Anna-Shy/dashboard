@@ -5,28 +5,49 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  padding-top: 10px;
+  overflow-y: scroll;
+
+  .charts-area {
+    width: 100%;
+    height: 320px;
+    margin-bottom: 60px;
+  }
+
+  .charts-title {
+    margin-bottom: 20px;
+  }
 
   &-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 97% 3%;
   }
 
-  &-switch{
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
+  &-list {
+    position: fixed;
+    list-style: none;
+    text-align: center;
 
-    .switch-text{
-      font-size: 14px;
-      font-weight: bold;
-      color: $soft-grey-color;
+    margin-top: 35px;
+  }
+
+  .item-circle {
+    margin: 8px 0;
+    background-color: #757d8b;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: #fff;
+    }
+
+    &.active {
+      background-color: #fff;
     }
   }
+}
 
-  .chart {
-    width: 100%;
-    height: 300px;
-  }
+.bigChartBox::-webkit-scrollbar {
+  display: none;
 }
