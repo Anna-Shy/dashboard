@@ -6,6 +6,8 @@ import { UpdateSnackbarAlert } from '../updateSnackbarAlert/UpdateSnackbarAlert'
 import { Modal, Box, Divider, TextField, Button, Select, MenuItem } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 
+import { months } from '../../source/data/MainData';
+
 import './updateModal.scss';
 
 interface User {
@@ -33,6 +35,7 @@ interface UpdateModal {
   handleClick: (e: any, userId: number) => void;
   openAlert: boolean;
   setOpenAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  scroll?: boolean;
 }
 
 const isMobile = window.innerWidth <= 426;
@@ -96,51 +99,72 @@ export const UpdateModal: React.FC<UpdateModal> = ({
   handleClick,
   openAlert,
   setOpenAlert,
+  scroll
 }) => {
+  let renderCount = 0;
+
   return (
     <Modal open={open} onClose={onClose} className="userInfoModal">
       <Box sx={styleModal}>
         <h2 className="userInfoModal__title">{title}</h2>
         <Divider />
         <div className="userInfoModal__context">
-          {userData.map((user, key) => (
-            <div className="userInfoModal__user" key={user.id}>
-              <div className="user-info">
-                <div className="user-color" style={{ backgroundColor: userColors[key % userColors.length] }}></div>
-                <h3 className="user-title">{user.userName}</h3>
-              </div>
-              <div className="user-inputBlock">
-                {renderTextField(user, key, 'text', 'projectTitle', handleChange)}
-                {renderTextField(user, key, 'select', 'projectStatus', handleChange)}
+          {userData.map((user, key) => {
+            renderCount++;
 
-                {renderTextField(user, key, 'number', 'week1', handleChange)}
-                {renderTextField(user, key, 'number', 'week2', handleChange)}
-                {renderTextField(user, key, 'number', 'week3', handleChange)}
-                {renderTextField(user, key, 'number', 'week4', handleChange)}
+            return (
+              <>
+                <div className="userInfoModal__user" key={user.id}>
+                  <div className="user-info">
+                    <div className="user-color" style={{ backgroundColor: userColors[key % userColors.length] }}></div>
+                    <h3 className="user-title">{user.userName}</h3>
+                  </div>
 
-                {renderTextField(user, key, 'number', 'mistake', handleChange)}
+                  <div className="user-inputBlock">
+                    {renderTextField(user, key, 'text', 'projectTitle', handleChange)}
+                    {renderTextField(user, key, 'select', 'projectStatus', handleChange)}
 
-                {renderTextField(user, key, 'number', 'oneOnone', handleChange)}
-                {renderTextField(user, key, 'number', 'weekly', handleChange)}
-                {renderTextField(user, key, 'number', 'training', handleChange)}
+                    {renderTextField(user, key, 'number', 'week1', handleChange)}
+                    {renderTextField(user, key, 'number', 'week2', handleChange)}
+                    {renderTextField(user, key, 'number', 'week3', handleChange)}
+                    {renderTextField(user, key, 'number', 'week4', handleChange)}
 
-                <Button
-                  disabled={false}
-                  size="medium"
-                  variant="contained"
-                  className="user-btn"
-                  onClick={(e) => handleClick(e, user.id)}
-                  startIcon={<CheckIcon />}
-                >
-                  Update
-                </Button>
-                <UpdateSnackbarAlert openAlert={openAlert} onClose={() => setOpenAlert(false)} />
-              </div>
-            </div>
-          ))}
+                    {renderTextField(user, key, 'number', 'mistake', handleChange)}
+
+                    {renderTextField(user, key, 'number', 'oneOnone', handleChange)}
+                    {renderTextField(user, key, 'number', 'weekly', handleChange)}
+                    {renderTextField(user, key, 'number', 'training', handleChange)}
+
+                    <Button
+                      disabled={false}
+                      size="medium"
+                      variant="contained"
+                      className="user-btn"
+                      onClick={(e) => handleClick(e, user.id)}
+                      startIcon={<CheckIcon />}
+                    >
+                      Update
+                    </Button>
+                    <UpdateSnackbarAlert openAlert={openAlert} onClose={() => setOpenAlert(false)} />
+                  </div>
+                </div>
+
+                {scroll && renderCount % 4 === 0 && (
+                  <>
+                    <h4 className="userInfoModal__month">
+                      {months[(renderCount / 4 - 1) % 12]}
+                    </h4>
+                    <hr />
+                  </>
+                )}
+              </>
+            )
+          }
+          )}
+
         </div>
       </Box>
-    </Modal>
+    </Modal >
   );
 };
 

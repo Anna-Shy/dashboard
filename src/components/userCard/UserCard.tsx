@@ -11,7 +11,7 @@ interface Employee {
   position: string;
   timeDayWork: object | any;
   workDuration?: string;
-  goToOffice: number;
+  shift: number;
 }
 
 const TWENTY_TWO = 22;
@@ -51,14 +51,14 @@ export const UserCard = ({ userInfoData }: { userInfoData: Employee[] }) => {
     return () => clearInterval(intervalId);
   }, [userInfoData]);
 
-  const getStatusColor = (goToOffice: number): string => {
+  const getStatusColor = (shift: number): string => {
     const defaultColor = "#757D8B";
 
-    if (goToOffice >= 15) {
+    if (shift >= 15) {
       return "limegreen" || defaultColor;
-    } else if (goToOffice < 15 && goToOffice >= 10) {
+    } else if (shift < 15 && shift >= 10) {
       return "orange" || defaultColor;
-    } else if (goToOffice < 10 && goToOffice >= 5) {
+    } else if (shift < 10 && shift >= 5) {
       return "yellow" || defaultColor;
     } else {
       return "tomato" || defaultColor;
@@ -82,9 +82,9 @@ export const UserCard = ({ userInfoData }: { userInfoData: Employee[] }) => {
 
             <div className="userInfo-goToOffice">
               <span className='goToOffice-span' style={{
-                color: getStatusColor(user.goToOffice),
+                color: getStatusColor(user.shift),
               }}>
-                {(user.goToOffice >= 0) ? user.goToOffice : 0}
+                {(user.shift >= 0) ? user.shift : 0}
               </span> / <span className='goToOffice-span-normal'>{TWENTY_TWO}</span>
             </div>
           </div>

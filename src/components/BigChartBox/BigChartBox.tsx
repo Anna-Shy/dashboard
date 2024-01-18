@@ -35,7 +35,7 @@ const incidentTotals = {
     week4: 0,
 };
 
-const ScrollspyItem = ({ id, label, isActive }: { id: string; label: string; isActive: boolean }) => (
+const ScrollspyItem = ({ id, isActive }: { id: string; label: string; isActive: boolean }) => (
     <li className='list-item'>
         <a className={`item-link ${isActive ? 'active' : ''}`} href={`#${id}`}>
             <div className={`item-circle ${isActive ? 'active' : ''}`}></div>
@@ -157,6 +157,7 @@ export const BigChartBox = ({ title }: { title: string }) => {
                 handleClick={handleClick}
                 openAlert={openAlert}
                 setOpenAlert={setOpenAlert}
+                scroll={true}
             />
 
             <div className="bigChartBox-row" ref={scrollspyRef}>
