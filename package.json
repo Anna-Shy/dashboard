@@ -3,12 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://Anna-Shy.github.io/dashboard",
   "scripts": {
     "start": "concurrently \"vite\" \"nodemon server/server.js\"",
     "dev": "concurrently \"vite\" \"nodemon server/server.js\"",
-    "build": "concurrently \"vite\" \"nodemon server/server.js\" build",
+    "build:client": "vite build",
+    "build:server": "tsc -p server/tsconfig.json",
+    "build": "npm run build:client && npm run build:server",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -39,6 +44,7 @@
     "eslint": "^8.44.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
+    "gh-pages": "^6.1.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.0"
   }
