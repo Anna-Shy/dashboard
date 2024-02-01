@@ -7,9 +7,7 @@
   "scripts": {
     "start": "concurrently \"vite\" \"nodemon server/server.js\"",
     "dev": "concurrently \"vite\" \"nodemon server/server.js\"",
-    "build:client": "vite build",
-    "build:server": "tsc -p server/tsconfig.json",
-    "build": "npm run build:client && npm run build:server",
+    "build": "concurrently \"vite\" \"nodemon server/server.js\" build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
