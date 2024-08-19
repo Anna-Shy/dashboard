@@ -4,6 +4,8 @@ import axios from "axios";
 import { projectStatusColors } from '../../source/data/MainData';
 import { UpdateModal } from '../updateModal/UpdateModal';
 
+import { userinfoData } from '../../source/data/userinfo';
+
 import './userProjectList.scss';
 
 interface User {
@@ -19,11 +21,22 @@ export const UserProjectList = () => {
     const [openAlert, setOpenAlert] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/userinfo`)
-            .then(response => response.json())
-            .then(data => setUserData(data))
-            .catch(error => console.error('Error loading data:', error));
+        const userInfo = userinfoData.map(item => ({
+            id: Number(item.id),
+            userName: item.userName,
+            projectTitle: item.projectTitle,
+            projectStatus: Number(item.projectStatus),
+        }));
+
+        setUserData(userInfo);
     }, []);
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:4000/userinfo`)
+    //         .then(response => response.json())
+    //         .then(data => setUserData(data))
+    //         .catch(error => console.error('Error loading data:', error));
+    // }, []);
 
     const handleClick = async (e: any, userId: number) => {
         e.preventDefault();

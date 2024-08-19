@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
 import { userColors } from '../../source/data/MainData';
+
+import { userinfoData } from '../../source/data/userinfo';
 
 import './userList.scss';
 
@@ -9,7 +12,24 @@ interface User {
     color: string;
 }
 
-export const UserList = ({ userInfoData }: { userInfoData: User[] }) => {
+export const UserList = () => {
+    const [userInfoData, setUserData] = useState<User[]>([]);
+
+    // useEffect(() => {
+    //   setUserData(userInfoData);
+    // });
+
+    useEffect(() => {
+        const userInfo = userinfoData.map(item => ({
+            id: Number(item.id),
+            userName: item.userName,
+            country: item.country,
+            color: item.color,
+        }));
+
+        setUserData(userInfo);
+    }, []);
+
     // Ensure that userInfoData is not empty before using it
     if (userInfoData.length === 0) {
         return <p>Loading...</p>;

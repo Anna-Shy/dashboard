@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 
+import { userinfoData } from '../../source/data/userinfo';
+
 import './userCard.scss';
 
 interface Employee {
@@ -16,12 +18,27 @@ interface Employee {
 
 const TWENTY_TWO = 22;
 
-export const UserCard = ({ userInfoData }: { userInfoData: Employee[] }) => {
-  const [userData, setUserData] = useState<Employee[]>(userInfoData);
+export const UserCard = () => {
+  // const [userData, setUserData] = useState<Employee[]>();
+  const [userData, setUserData] = useState<Employee[]>([]);
+
+  // useEffect(() => {
+  //   setUserData(userInfoData);
+  // });
 
   useEffect(() => {
-    setUserData(userInfoData);
-  });
+    const userInfo = userinfoData.map(item => ({
+      id: Number(item.id),
+      image: item.image,
+      userName: item.userName,
+      position: item.position,
+      startWorkDate: item.startWorkDate,
+      timeDayWork: Object(item.timeDayWork),
+      shift: Number(item.shift),
+    }));
+
+    setUserData(userInfo);
+  }, []);
 
   const calculateWorkDuration = (startWorkDate: string): string => {
     const start = moment(startWorkDate);
@@ -49,7 +66,7 @@ export const UserCard = ({ userInfoData }: { userInfoData: Employee[] }) => {
     }, 86400000); // 86400000 ms in a day
 
     return () => clearInterval(intervalId);
-  }, [userInfoData]);
+  }, [userData]);
 
   const getStatusColor = (shift: number): string => {
     const defaultColor = "#757D8B";

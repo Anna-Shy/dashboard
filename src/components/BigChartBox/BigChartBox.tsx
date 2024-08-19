@@ -15,12 +15,14 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 
+import { incidentData } from '../../source/data/incident';
+
 import './bigChartBox.scss';
 
 interface Chart {
     id: number;
     userName: string;
-    month: string;
+    currentMonth: string;
     week1: number;
     week2: number;
     week3: number;
@@ -52,13 +54,27 @@ export const BigChartBox = ({ title }: { title: string }) => {
     const scrollspyRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        fetch('http://localhost:4000/incident')
-            .then((response) => response.json())
-            .then((data) => setUserData(data))
-            .catch((error) =>
-                console.error('Error loading data:', error)
-            );
+        const chartData = incidentData.map((item: any) => ({
+            id: Number(item.id),
+            userName: item.userName,
+            currentMonth: item.currentMonth,
+            week1: Number(item.week1),
+            week2: Number(item.week2),
+            week3: Number(item.week3),
+            week4: Number(item.week4),
+        }));
+
+        setUserData(chartData);
     }, []);
+
+    // useEffect(() => {
+    //     fetch('http://localhost:4000/incident')
+    //         .then((response) => response.json())
+    //         .then((data) => setUserData(data))
+    //         .catch((error) =>
+    //             console.error('Error loading data:', error)
+    //         );
+    // }, []);
 
     const handleScroll = () => {
         if (scrollspyRef.current) {
@@ -83,7 +99,6 @@ export const BigChartBox = ({ title }: { title: string }) => {
 
             setActiveSection(newActiveSection);
         }
-        console.log('handleScroll is called!');
     };
 
 

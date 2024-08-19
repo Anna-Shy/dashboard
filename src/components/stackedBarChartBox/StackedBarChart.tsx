@@ -6,6 +6,8 @@ import { UpdateModal } from '../updateModal/UpdateModal';
 
 import { ComposedChart, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer } from 'recharts';
 
+import { meetingData } from '../../source/data/meeting';
+
 import './stackedBarChart.scss';
 
 interface Chart {
@@ -29,11 +31,23 @@ export const StackedBarChart = ({ title }: { title: string }) => {
     const [openAlert, setOpenAlert] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:4000/meeting')
-            .then(response => response.json())
-            .then(data => setUserData(data))
-            .catch(error => console.error('Error loading data:', error));
+        const chartData = meetingData.map((item: any) => ({
+            id: Number(item.id),
+            userName: item.userName,
+            oneOnone: Number(item.oneOnone),
+            weekly: Number(item.weekly),
+            training: Number(item.training),
+        }));
+
+        setUserData(chartData);
     }, []);
+
+    // useEffect(() => {
+    //     fetch('http://localhost:4000/meeting')
+    //         .then(response => response.json())
+    //         .then(data => setUserData(data))
+    //         .catch(error => console.error('Error loading data:', error));
+    // }, []);
 
     const handleClick = async (e: any, userId: number) => {
         e.preventDefault();

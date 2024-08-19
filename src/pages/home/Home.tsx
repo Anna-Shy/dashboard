@@ -10,23 +10,25 @@ import { UserProjectList } from '../../components/userProjectList/UserProjectLis
 import './home.scss'
 
 const Home = () => {
-    const [userInfoData, setUserInfoData] = useState([]);
+    // const [userInfoData, setUserInfoData] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:4000/userinfo')
-            .then(response => response.json())
-            .then(data => setUserInfoData(data))
-            .catch(error => console.error('Error loading data:', error));
-    }, []);
+    // useEffect(() => {
+    //     fetch('http://localhost:4000/userinfo')
+    //         .then(response => response.json())
+    //         .then(data => setUserInfoData(data))
+    //         .catch(error => console.error('Error loading data:', error));
+    // }, []);
 
     return (
         <div className='home'>
             <div className="box__top">
-                <UserCard userInfoData={userInfoData} />
+                <UserCard />
+                {/* <UserCard userInfoData={userInfoData} /> */}
             </div>
             <div className="box__main">
                 <div className="box box1">
-                    <UserList userInfoData={userInfoData} />
+                    <UserList />
+                    {/* <UserList userInfoData={userInfoData} /> */}
                 </div>
                 <div className="box box2">
                     <BigChartBox title={'Amount of Incident'} />

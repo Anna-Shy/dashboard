@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"vite\" \"nodemon server/server.js\"",
+    "start": "vite",
     "dev": "concurrently \"vite\" \"nodemon server/server.js\"",
-    "build": "concurrently \"vite\" \"nodemon server/server.js\" build",
+    "build": "vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

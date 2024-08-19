@@ -7,6 +7,8 @@ import { UpdateModal } from '../updateModal/UpdateModal';
 import Switch from '@mui/material/Switch';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
+import { mistakeData } from "../../source/data/mistake";
+
 import './pieChartBox.scss';
 
 interface Chart {
@@ -39,11 +41,22 @@ export const PieChartBox: React.FC<{ title: string }> = ({ title }) => {
     const [openAlert, setOpenAlert] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/mistake`)
-            .then(response => response.json())
-            .then(data => setUserData(data))
-            .catch(error => console.error('Error loading data:', error));
+        const chartData = mistakeData.map((item: any) => ({
+            id: Number(item.id),
+            userName: item.userName,
+            mistake: Number(item.mistake),
+            color: item.color,
+        }));
+
+        setUserData(chartData);
     }, []);
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:4000/mistake`)
+    //         .then(response => response.json())
+    //         .then(data => setUserData(data))
+    //         .catch(error => console.error('Error loading data:', error));
+    // }, []);
 
     const handleClick = async (e: any, userId: number) => {
         e.preventDefault();
