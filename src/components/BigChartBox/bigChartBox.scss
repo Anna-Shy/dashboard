@@ -1,4 +1,5 @@
 @import "../../styles/variable.scss";
+@import "../../styles/responsive.scss";
 
 .bigChartBox {
   width: 100%;
@@ -44,6 +45,12 @@
 
     &.active {
       background-color: #fff;
+    }
+  }
+
+  @include md {
+    .bigChartBox-menu {
+      display: none;
     }
   }
 }

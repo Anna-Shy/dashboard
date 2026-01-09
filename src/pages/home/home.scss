@@ -30,13 +30,10 @@
     grid-auto-flow: dense;
 
     @include md {
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-direction: column;
     }
-
-    @include sm {
-      grid-template-columns: repeat(1, auto);
-    }
-
+    
     .box {
       flex: 1;
       padding: 15px 20px;

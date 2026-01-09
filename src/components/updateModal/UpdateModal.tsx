@@ -113,10 +113,13 @@ export const UpdateModal: React.FC<UpdateModal> = ({
             renderCount++;
 
             return (
-              <>
-                <div className="userInfoModal__user" key={user.id}>
+              <React.Fragment key={`user-${user.id}-${key}`}>
+                <div className="userInfoModal__user">
                   <div className="user-info">
-                    <div className="user-color" style={{ backgroundColor: userColors[key % userColors.length] }}></div>
+                    <div
+                      className="user-color"
+                      style={{ backgroundColor: userColors[key % userColors.length] }}
+                    ></div>
                     <h3 className="user-title">{user.userName}</h3>
                   </div>
 
@@ -150,18 +153,16 @@ export const UpdateModal: React.FC<UpdateModal> = ({
                 </div>
 
                 {scroll && renderCount % 4 === 0 && (
-                  <>
+                  <React.Fragment key={`month-${renderCount}`}>
                     <h4 className="userInfoModal__month">
                       {months[(renderCount / 4 - 1) % 12]}
                     </h4>
                     <hr />
-                  </>
+                  </React.Fragment>
                 )}
-              </>
-            )
-          }
-          )}
-
+              </React.Fragment>
+            );
+          })}
         </div>
       </Box>
     </Modal >

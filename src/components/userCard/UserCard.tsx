@@ -4,7 +4,7 @@ import moment from 'moment';
 import { userinfoData } from '../../source/data/userinfo';
 
 import './userCard.scss';
-
+ 
 interface Employee {
   id: number;
   image: string;

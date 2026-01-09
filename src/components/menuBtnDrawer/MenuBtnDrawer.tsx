@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { userInfoData } from '../../source/data/UserInfoData';
+import { userinfoData } from '../../source/data/userinfo';
+
 import { Box, Button, Drawer } from '@mui/material';
 
 import './menuBtnDrawer.scss';
@@ -22,12 +23,12 @@ export const MenuBtnDrawer = ({ title }: { title: string }) => {
             className="drawerBox__card"
         >
             {/* test data */}
-            {userInfoData.map((user, key) => (
+            {userinfoData.map((user, key) => (
                 <div className="userCard" key={key}>
-                    <h2 className="userCard-title">{user.username}</h2>
+                    <h2 className="userCard-title">{user.userName}</h2>
 
                     <div className="userCard-aboutWork">
-                        <p className='aboutWork-workData'>{user.timeDayWork}</p>
+                        <p className='aboutWork-workData'>{user.startWorkDate}</p>
                         <p className="aboutWork-position">{user.position}</p>
                     </div>
                 </div>
